@@ -150,7 +150,7 @@ export default function PrimarySearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ display: { xs: "none", sm: "block" } }}>
-            MUI
+            WEB9JA
           </Typography>
           <Search>
             <SearchIconWrapper>
