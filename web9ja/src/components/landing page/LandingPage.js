@@ -15,31 +15,26 @@ const LandingPage = () => {
         </div>
       </div>
       <div className={classes.bottom}>
-        
-        <Grid container spacing={2}>
-           
-            <Grid item xs={4}>
-              <div className={classes.firstGrid}>
-              </div>
-            </Grid>
-
-            
-            <Grid item xs={4}>
-              <div className={classes.secondGrid}>
-              
-              </div>
-            </Grid>
-
-         
-            <Grid item xs={4}>
-              <div className={classes.thirdGrid}>
-              
-              </div>
-            </Grid>
-          </Grid>
+        <div className={classes.firstItem}></div>
+        <div className={classes.secondItem}></div>
+        <div className={classes.thirdItem}></div>
       </div>
 
+
+      <div className={classes.top}>
+      <div className={classes.leftSection1}>
+        <h4> Get branded fits sold and cleaned by the originals themselves</h4>
+      </div>
+
+      <div className={classes.RightSection1}>
+       <h4>Get the originals for less</h4>
+      </div>
+
+
+      </div>
     </div>
+
   );
 };
 export default LandingPage;
+  
