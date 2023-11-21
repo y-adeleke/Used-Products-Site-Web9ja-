@@ -67,10 +67,16 @@ const LandingPage = () => {
         <h3 style={{marginRight:"-295px"}}>still get paid</h3>
       </div>
       </div>
-      <div className={classes.FourthSection}>
-        
-      </div>
+      <div className={classes.FourthSection}> </div>
+      <div className={classes.secondButton}>
+      <button>Sell item</button>
+    </div>
 
+    <div className={classes.footerSection}>
+
+      <h2>Footer</h2>
+    </div>
+      
     </div>
 
   );
