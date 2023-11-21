@@ -24,6 +24,7 @@
     height: 529px;
     flex-shrink: 0;
     background: #D9D9D9;
+    margin-top: 128px;
 }
 .secondItem{
     width: 623px;
@@ -36,13 +37,14 @@
     height: 615px;
     flex-shrink: 0;
     background: #D9D9D9;
+    margin-top: 49px;
 }
 
 .leftSection h1{
     width: 50.5rem;
     text-align: left;
     color: #000;
-    font-size: 90px;
+    font-size: 70px;
     font-style: normal;
     font-weight: 400;
     line-height: 100%; /* 120px */
@@ -57,23 +59,104 @@
     font-weight: 551;
     line-height: 100%; /* 44.8px */
 }
-.leftSection1{
+.leftSection1 {
     color: #4F4F4F;
-  
-    font-size: 32px;
+    text-align: left;
+    font-size: 38px;
     font-style: normal;
     font-weight: 551;
     line-height: 140%; /* 44.8px */
     width: 245px;
+   
 }
 
 .RightSection1 h4{
-    width: 20.25rem;
+    width: 35.50rem;
     color: #000;
     text-align: right;
     font-size: 50px;
     font-style: normal;
-    font-weight: 700;
-    line-height: 120%; /* 96px */
+    font-weight: 710;
+    line-height: 100%; /* 96px */
+  
     
+}
+.top1{
+   
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.ImgFolder {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    float: left;
+    
+}
+.ImgFolder1{
+   
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 48px;
+    height:auto;
+
+}
+.Grid2{
+    gap:3rem;
+    display: inline-flex;
+    overflow: hidden;
+}
+
+.firstItem1{
+    width: 792px;
+    height: 1119PX;
+    flex-shrink: 0;
+    background: #D9D9D9;
+    margin-top: 45px;
+    margin-left: 30px;
+    
+ 
+}
+.secondItem1{
+    width: 698px;
+    height: 794px;
+    flex-shrink: 0;
+    background: #D9D9D9;
+}
+.ThirdSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+.ThirdSection1{
+    color: #000;
+    font-weight: 500;
+    margin-left: 200;
+    font-size: 80px;
+    font-style: normal;
+    
+    line-height: 120%; /* 96px */
+}
+.ThirdSection2{
+    width: 415px;
+    color: #4F4F4F;
+    text-align: right;
+    font-family: Inter;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 551;
+    line-height: 140%; /* 44.8px */
+}
+.FourthSection{
+    margin-left: 25px;
+    background: #D9D9D9;
+    width: 1560px;
+    height: 700px;
+    flex-shrink: 0;
 }
