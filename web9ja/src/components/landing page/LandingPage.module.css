@@ -3,7 +3,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    height: 72.7rem;
+    height: auto;
+    width: 100%;
 }
 
 .top{
@@ -175,10 +176,7 @@
 }
 .footerSection{
     margin-top: 50px;
-    margin-left: 50px;
-    margin-right: 50px;
-    display: grid;
-    width: 1648px;
+    width: 80%;
     height: 671px;
     flex-shrink: 0;
     border-radius: 16px;

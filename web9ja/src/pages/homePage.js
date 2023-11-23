@@ -1,12 +1,13 @@
 import LandingPage from "../components/landing page/LandingPage";
-import PrimarySearchAppBar from "../materail UI demo/demo";
+import NavBar from "../components/landing page/navBar/navBar";
 
 
 
 const Home = () => {
   return (
     <div>
-      <PrimarySearchAppBar />
+      <NavBar/>
+      {/* <PrimarySearchAppBar /> */}
       <LandingPage />
     </div>
   )

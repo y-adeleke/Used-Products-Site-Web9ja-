@@ -1,5 +1,4 @@
 import classes from "./LandingPage.module.css";
-import { Grid } from "@mui/material";
 import  pic1 from "../../Images/Adidas_ logo.jpg";
 import pic2 from "../../Images/Fila_logo.jpg";
 import pic3 from "../../Images/jordan_1.jpg";
@@ -32,13 +31,13 @@ const LandingPage = () => {
 
       <div className={classes.top1}>
 
-      <div className={classes.leftSection1}>
-        <h4 style={{marginLeft:"-200px"}}> Get branded fits sold and cleaned by the originals themselves</h4>
-      </div>
+        <div className={classes.leftSection1}>
+          <h4 style={{marginLeft:"-200px"}}> Get branded fits sold and cleaned by the originals themselves</h4>
+        </div>
 
-      <div className={classes.RightSection1}>
-       <h4 style={{marginRight:"-220px"}}>Get the originals for less</h4>
-      </div>
+        <div className={classes.RightSection1}>
+        <h4 style={{marginRight:"-220px"}}>Get the originals for less</h4>
+        </div>
       </div>
 
       <div className={classes.ImgFolder}>
@@ -52,20 +51,20 @@ const LandingPage = () => {
       </div>
 
       <div className={classes.Grid2}>
-      <div className={classes.firstItem1}></div>
-      <div className={classes.secondItem1}></div>
+        <div className={classes.firstItem1}></div>
+        <div className={classes.secondItem1}></div>
       </div>
 
       <div className={classes.ThirdSection}>
-      <div className={classes.ThirdSection1}>
-        <h3 style={{marginLeft:"-220px"}}> Sell your old </h3>
-        <h3 style={{marginLeft:"-220px"}}>Items old items</h3>
-      </div>
-      <div className={classes.ThirdSection2}>
-        <h3 style={{marginRight:"-295px"}}> Promote eco-friendly </h3>
-        <h3 style={{marginRight:"-295px"}}>clothing distributing and </h3>
-        <h3 style={{marginRight:"-295px"}}>still get paid</h3>
-      </div>
+        <div className={classes.ThirdSection1}>
+          <h3 style={{marginLeft:"-220px"}}> Sell your old </h3>
+          <h3 style={{marginLeft:"-220px"}}>Items old items</h3>
+        </div>
+        <div className={classes.ThirdSection2}>
+          <h3 style={{marginRight:"-295px"}}> Promote eco-friendly </h3>
+          <h3 style={{marginRight:"-295px"}}>clothing distributing and </h3>
+          <h3 style={{marginRight:"-295px"}}>still get paid</h3>
+        </div>
       </div>
       <div className={classes.FourthSection}> </div>
       <div className={classes.secondButton}>
@@ -73,11 +72,10 @@ const LandingPage = () => {
     </div>
 
     <div className={classes.footerSection}>
-
       <h2>Footer</h2>
     </div>
       
-    </div>
+  </div>
 
   );
 };

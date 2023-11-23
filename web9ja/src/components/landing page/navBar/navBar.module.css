@@ -1,0 +1,61 @@
+.MainHeading{
+    width: 100%;
+    height: 136px;
+    flex-shrink: 0;
+    border-bottom: 1px solid #E1E1E1;
+    background: #FAFAFA;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 1rem;
+    /* position: fixed; */
+}
+
+
+.leftSection{
+    color: #000;
+    font-family: Inter;
+    font-size: 19.765px;
+    font-style: normal;
+    font-weight: 645;
+    line-height: 140%; /* 27.671px */
+    letter-spacing: -0.395px;
+}
+.MiddlePart h3{
+    color: #000;
+    text-align: center;
+    font-size: 24.703px;
+    font-style: normal;
+    font-weight: 807;
+    line-height: 100%; /* 29.703px */
+    letter-spacing: -0.594px;
+    margin-left: 140px;
+}
+.RightSide{
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   gap: 1rem;
+}
+.GetButton{
+    display: inline-flex;
+    padding: 12px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 7.703px;
+    border-radius: 2px;
+    background: #000;
+    color: #ffff;
+}
+.SignButton{
+    display: inline-flex;
+    padding: 12px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 7.703px;
+    border-radius: 2px;
+    border: 1px solid #000;
+    background: #FAFAFA;
+}
