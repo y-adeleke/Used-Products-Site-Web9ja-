@@ -5,7 +5,7 @@ const navBar =
     return(
 <div className={classes.MainHeading}>
         <div className={classes.LeftSide}>
-            <h3>contact@Web9ja.ca</h3>
+            <h4>contact@Web9ja.ca</h4>
         </div>
 
         <div className={classes.MiddlePart}>
