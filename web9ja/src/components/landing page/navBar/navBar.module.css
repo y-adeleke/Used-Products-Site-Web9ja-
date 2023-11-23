@@ -1,5 +1,5 @@
 .MainHeading{
-    width: 100%;
+    width: 100vw;
     height: 136px;
     flex-shrink: 0;
     border-bottom: 1px solid #E1E1E1;
