@@ -1,0 +1,41 @@
+/* ItemChoices.module.css */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px; /* Adjust the margin as needed */
+  gap: 200px; /* Add a gap of 200px between the two divs */
+}
+
+.categoriesContainer {
+  text-align: left;
+}
+
+.categories {
+  font-weight: bold;
+}
+
+.smallText {
+  font-size: 0.8em;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 10px;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #555;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  border-radius: 50px; /* Oval shape */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover {
+  background-color: #eee;
+  color: #333;
+}

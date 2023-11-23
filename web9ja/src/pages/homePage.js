@@ -1,14 +1,17 @@
-import LandingPage from "../components/landing page/LandingPage";
-import PrimarySearchAppBar from "../materail UI demo/demo";
+import Homes from "../components/homepageContent/homePageContent";
 
-
+import Navbar from "../components/navBar/NavbarContent";
+import Triangle from "../components/TriangleFlipper/tri_Content";
+import ViewMore from "../components/viewMoreCards/morecards";
 
 const Home = () => {
   return (
     <div>
-      <PrimarySearchAppBar />
-      <LandingPage />
+      <Navbar />
+      <Triangle />
+      <ViewMore />
+      <Homes />
     </div>
-  )
+  );
 };
 export default Home;

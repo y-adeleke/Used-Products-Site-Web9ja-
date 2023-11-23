@@ -1,0 +1,31 @@
+.flipContainer {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  margin: 20px; /* Adjust the margin as needed */
+  gap: 20px; /* Adjust the gap as needed */
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent; /* Half of the desired width */
+  border-right: 12px solid transparent; /* Half of the desired width */
+  border-bottom: 21px solid #333; /* Adjust the color and size as needed */
+  cursor: pointer;
+  margin-bottom: auto; /* Push the triangle to the top */
+}
+
+.inverted {
+  border-bottom: 0;
+  border-top: 21px solid #333; /* Adjust the color and size as needed */
+}
+/* Add hover styles if needed */
+.triangle:hover {
+  /* Add styles for hover state */
+}
+
+/* position: relative;
+width: 4px;
+height: 4px;
+margin: auto; */
