@@ -17,18 +17,19 @@ const ViewMore = () => {
   };
 
   return (
-    <div>
-      <button className={classes.viewMoreButton} onClick={handleViewMore}>
-        View More
-      </button>
+    <footer>
+      <div className={classes.pageContainer}>
+        <div className={classes.cardContainer}>
+          {cards.map((card) => (
+            <Cards key={card.id} image={card.image} title={card.title} />
+          ))}
+        </div>
 
-      {/* Display generated cards in rows of three */}
-      <div className={classes.cardContainer}>
-        {cards.map((card) => (
-          <Cards key={card.id} image={card.image} title={card.title} />
-        ))}
+        <button className={classes.viewMoreButton} onClick={handleViewMore}>
+          View More
+        </button>
       </div>
-    </div>
+    </footer>
   );
 };
 

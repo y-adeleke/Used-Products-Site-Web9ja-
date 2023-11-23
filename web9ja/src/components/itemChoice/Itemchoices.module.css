@@ -17,6 +17,7 @@
 
 .smallText {
   font-size: 0.8em;
+  font-weight: lighter;
 }
 
 .buttonsContainer {
@@ -38,4 +39,9 @@
 .button:hover {
   background-color: #eee;
   color: #333;
+}
+
+.selected {
+  color: #000;
+  border-color: #000;
 }

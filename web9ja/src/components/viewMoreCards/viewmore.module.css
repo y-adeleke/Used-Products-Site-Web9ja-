@@ -3,14 +3,18 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap; /* Allow cards to wrap into a new row */
-  /* gap: 10px;  */
+  gap: 10px;
 }
 
 .viewMoreButton {
   background-color: white;
   color: black;
-  padding: 10px 20px; /* Adjust padding as needed */
-  margin-top: 10px; /* Add margin to separate the button from the cards */
+  padding: 15px 20px;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+
   border: 1px solid black; /* Add border for a box effect */
   z-index: 1; /* Set a higher z-index value to ensure it appears above other components */
 }

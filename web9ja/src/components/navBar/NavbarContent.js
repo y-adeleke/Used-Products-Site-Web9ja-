@@ -111,7 +111,7 @@
 //   },
 // }));
 
-// export default function PrimarySearchAppBar() {
+// export default function FirstSearchNavBar(){
 //   const handleSignIn = () => {
 //     // Handle sign-in action
 //     console.log("Sign In clicked");
@@ -312,7 +312,7 @@ const BlackBackgroundButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function FirstSearchNavBar() {
   const handleLanguageClick = () => {
     // Handle language icon click
     console.log("Language clicked");
