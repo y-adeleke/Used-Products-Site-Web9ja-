@@ -1,9 +1,9 @@
 import Ads from "../components/ads/ads";
-
+import Nav from "../components/navbar/Nav";
 const AdsPage = () => {
   return (
     <div>
-      <h1>Ads Page (list of ads)</h1>
+      <Nav />
       <Ads />
     </div>
   );
