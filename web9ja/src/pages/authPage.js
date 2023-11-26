@@ -1,7 +1,9 @@
+import Auth from "../components/auth/Auth";
+
 const AuthPage = () => {
   return (
     <div>
-      <h1>Auth</h1>
+      <Auth />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import classes from "./LandingPage.module.css";
 const LandingPage = () => {
   return (
     <div>
-      <h1>Your Landing Page</h1>
+      <h1>Web9ja</h1>
     </div>
   );
 };
