@@ -8,6 +8,7 @@ const AdFullDisplay = () => {
         <div className={classes["ad-full-display__container__header"]}>
           <h3>Ad Full Display</h3>
         </div>
+        dkuhwdw
       </div>
     </div> */
 
@@ -133,7 +134,7 @@ const AdFullDisplay = () => {
                     </h4>
                 </div>
               </div>
-              <div className={classes.commentv2}>
+               <div className={classes.commentv2}>
                 <div className={classes.profimg}></div>
                 <div className={classes.text}>
                     <h2>
@@ -144,6 +145,7 @@ const AdFullDisplay = () => {
                     </h4>
                 </div>
               </div>
+              
           </div>
         </div>
         <div className={classes.commentbox}>

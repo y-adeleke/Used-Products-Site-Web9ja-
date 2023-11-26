@@ -13,13 +13,14 @@ const LandingPage = () => {
         </h1>
      </div>
       <div className={classes.buttons}>
-        <div className={classes.prycta}>
+        
+        <button className={classes.prycta}>
           Get Started
-        </div>
-        <div className={classes.seccta
+        </button>
+        <button className={classes.seccta
 }>
           Sign in
-        </div>
+        </button>
       </div>
     </div>
     <div className={classes.Fullpage}>
