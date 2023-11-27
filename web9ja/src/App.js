@@ -17,10 +17,10 @@ function App() {
     <div className="App">
       {uiContext.loading && <LoadingSpinner />}
       <SimpleSnackbar />
+      <UpdateForm />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="/update" element={<UpdateForm />} />
         <Route path="/ads" element={<AdsPage />} />
         <Route path="/ad" element={<AdPage />} />
       </Routes>

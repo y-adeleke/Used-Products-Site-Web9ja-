@@ -32,7 +32,6 @@ const Login = () => {
     if (res) {
       navigate("/ads");
     }
-    console.log(userData);
   };
 
   return (

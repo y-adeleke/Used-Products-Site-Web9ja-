@@ -2,6 +2,8 @@ import { createContext, useState, useEffect } from "react";
 
 const UIContext = createContext({
   loading: false,
+  openUpdateForm: false,
+  setOpenUpdateForm: () => {},
   snackBar: {
     show: false,
     success: false,
@@ -13,6 +15,7 @@ const UIContext = createContext({
 
 export const UIContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
+  const [openUpdateForm, setOpenUpdateForm] = useState(false);
   const [snackBar, setSnackBar] = useState({
     show: false,
     success: false,
@@ -29,8 +32,14 @@ export const UIContextProvider = (props) => {
     }
   }, [snackBar.show]);
 
+  const openUpdateFormHandler = (condition) => {
+    setOpenUpdateForm(condition);
+  };
+
   const contextValue = {
     loading,
+    openUpdateForm: openUpdateForm,
+    setOpenUpdateForm: openUpdateFormHandler,
     setLoading,
     snackBar,
     setSnackBar,

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect, useContext, useCallback } from "react";
 import UIContext from "./ui-context";
 import UserContext from "./user-context";
 
@@ -10,10 +10,18 @@ const AuthContext = createContext({
 });
 
 export const AuthContextProvider = (props) => {
+  //Consumption of other state from context
   const uiContext = useContext(UIContext);
   const { setUserData } = useContext(UserContext);
-  const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")));
 
+  //State
+  const [token, setToken] = useState(null);
+
+  /*
+  This useEffect is used to check if the token is still valid when the page is refreshed.
+  Also, it is used to check if the token is still valid when the user is still on the page.
+  Also, it will delete the token and userData from localStorage if the token has expired(1d).
+  */
   useEffect(() => {
     // Function to check token expiration
     const checkTokenExpiration = () => {
@@ -37,6 +45,18 @@ export const AuthContextProvider = (props) => {
     return () => clearInterval(interval);
   }, [setUserData]);
 
+  /*
+  This callback is used to set the token 
+  */
+  const setTokenData = useCallback((data) => {
+    setToken(data);
+  }, []);
+
+  /*
+  This function is used to sign in a user.
+  Displays approriate message to the user.
+  It saves the user data and token to localStorage including the expiration time.
+   */
   const signInHandler = async (email, password) => {
     try {
       uiContext.setLoading(true);
@@ -50,7 +70,6 @@ export const AuthContextProvider = (props) => {
           password,
         }),
       });
-      console.log(res);
       if (!res.ok) {
         const resData = await res.json();
         const errorMessage = resData.message || "Unable to sign in, try again.";
@@ -79,6 +98,9 @@ export const AuthContextProvider = (props) => {
     }
   };
 
+  /*
+  This function is used to sign out a user by deleting thier data from localStorage.
+  */
   const signOutHandler = async () => {
     uiContext.setLoading(true);
     setToken(null);
@@ -95,7 +117,7 @@ export const AuthContextProvider = (props) => {
 
   const contextValue = {
     token: token,
-    setToken,
+    setToken: setTokenData,
     signIn: signInHandler,
     logOut: signOutHandler,
   };

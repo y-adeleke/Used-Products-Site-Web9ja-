@@ -14,6 +14,7 @@ const SignUp = () => {
     phone: "",
     address: "",
     password: "",
+    countryCode: "",
   });
 
   const ctx = useContext(UserContext);
@@ -28,36 +29,51 @@ const SignUp = () => {
     });
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     userData.bio = "";
     userData.profilePicture = "";
-    ctx.signUp(userData);
-    console.log(userData);
+    const data = { ...userData };
+    data.phone = data.countryCode + data.phone;
+    const res = await ctx.signUp(data);
+    if (res) {
+      setUserData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        username: "",
+        phone: "",
+        address: "",
+        password: "",
+        countryCode: "",
+      });
+    }
   };
 
   return (
     <form className={classes.signUpForm} onSubmit={onSubmitHandler}>
       <div className={classes.nameBox}>
-        <input name="firstName" type="text" placeholder="First Name" required onChange={changeHandler} />
-        <input name="lastName" type="text" placeholder="Last Name" required onChange={changeHandler} />
+        <input name="firstName" type="text" placeholder="First Name" required onChange={changeHandler} value={userData.firstName} />
+        <input name="lastName" type="text" placeholder="Last Name" required onChange={changeHandler} value={userData.lastName} />
       </div>
 
-      <input name="email" type="email" required placeholder="Email" onChange={changeHandler} />
-      <input name="username" type="text" placeholder="Unique username" required onChange={changeHandler} />
+      <input name="email" type="email" required placeholder="Email" onChange={changeHandler} value={userData.email} />
+      <input name="username" type="text" placeholder="Unique username" required onChange={changeHandler} value={userData.username} />
+
       <div className={classes.phone}>
         <div className={classes.selectPhoneBox}>
-          <select name="countryCode" id="countryCode" required className={classes.phoneCode}>
+          <select name="countryCode" id="countryCode" className={classes.phoneCode} onChange={changeHandler} value={userData.countryCode}>
             <option value="+1">+1 (CA)</option>
             <option value="+1">+1 (US)</option>
+            <option value="+44">+44 (UK)</option>
           </select>
         </div>
 
-        <input name="phone" type="text" placeholder="123456789" required className={classes.phoneText} onChange={changeHandler} />
+        <input name="phone" type="text" placeholder="123456789" required className={classes.phoneText} onChange={changeHandler} value={userData.phone} />
       </div>
-      <input name="address" type="text" placeholder="Address" required onChange={changeHandler} />
+      <input name="address" type="text" placeholder="Address" required onChange={changeHandler} value={userData.address} />
       <div className={classes.passwordContainer}>
-        <input name="password" type={visible ? "text" : "password"} minLength={8} placeholder="********" required onChange={changeHandler} />
+        <input name="password" type={visible ? "text" : "password"} minLength={8} placeholder="********" required onChange={changeHandler} value={userData.password} />
         {visible && (
           <VisibilityIcon
             className={classes.passIcon}

@@ -16,6 +16,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import CatImg from "../../images/cat.jpg";
 import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
+import UIContext from "../../store/ui-context";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
@@ -23,6 +24,7 @@ const Nav = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [active, setActive] = useState("explore"); // for active link
   const authContext = useContext(AuthContext);
+  const uiContext = useContext(UIContext);
   const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
@@ -49,7 +51,8 @@ const Nav = () => {
     authContext.logOut();
   };
   const updateProfileHandler = () => {
-    navigate("/update");
+    console.log("before");
+    uiContext.setOpenUpdateForm(true);
   };
 
   return (
@@ -65,7 +68,7 @@ const Nav = () => {
           onClick={() => {
             navigate("/");
           }}>
-          <img src={Logo} alt="logo" srcset="" style={{ height: "50px", width: "50px", marginRight: "1rem" }} />
+          <img src={Logo} alt="logo" srcSet="" style={{ height: "50px", width: "50px", marginRight: "1rem" }} />
         </div>
 
         <ul className={classes.navLinks}>
@@ -135,10 +138,12 @@ const Nav = () => {
             }}
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography textAlign="center" onClick={updateProfileHandler}>
-                Profile
-              </Typography>
+            <MenuItem
+              onClick={() => {
+                handleCloseUserMenu();
+                updateProfileHandler();
+              }}>
+              <Typography textAlign="center">Profile</Typography>
             </MenuItem>
             <MenuItem onClick={handleCloseUserMenu}>
               <Typography textAlign="center" onClick={logoutHandler}>
