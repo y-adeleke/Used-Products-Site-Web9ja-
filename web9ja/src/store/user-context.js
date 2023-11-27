@@ -1,6 +1,5 @@
 import { createContext, useState, useContext, useCallback } from "react";
 import UIContext from "./ui-context";
-import AuthContext from "./auth-context";
 
 const UserContext = createContext({
   userData: null,
@@ -11,19 +10,18 @@ const UserContext = createContext({
 });
 
 export const UserContextProvider = (props) => {
+  //consumption of other state from context
   const uiContext = useContext(UIContext);
-  const authContext = useContext(AuthContext);
-  const [userData, setUserDataState] = useState(JSON.parse(localStorage.getItem("userData")));
+
+  const [userData, setUserDataState] = useState(null);
 
   const setUserData = useCallback((data) => {
     setUserDataState(data);
-    if (data) {
-      localStorage.setItem("userData", JSON.stringify(data));
-    } else {
-      localStorage.removeItem("userData");
-    }
   }, []);
 
+  /*
+  This function is used to sign up a user.
+   */
   const signUpHandler = async (data) => {
     try {
       uiContext.setLoading(true);
@@ -46,7 +44,7 @@ export const UserContextProvider = (props) => {
         success: true,
         message: resData.message,
       });
-      console.log(resData);
+      return true;
     } catch (error) {
       uiContext.setLoading(false);
       uiContext.setSnackBar({
@@ -57,6 +55,10 @@ export const UserContextProvider = (props) => {
     }
   };
 
+  /*
+   This function is used to update a user account.
+   It then set the updated user data to the userData state.
+  */
   const updateUserHandler = async (data, userID, token) => {
     try {
       uiContext.setLoading(true);
@@ -81,14 +83,15 @@ export const UserContextProvider = (props) => {
         throw new Error(errorMessage);
       }
       const resData = await res.json();
+      console.log("resdata", resData);
       uiContext.setLoading(false);
-      setUserData(resData.user);
+      setUserData(resData.data);
       uiContext.setSnackBar({
         show: true,
         success: true,
         message: resData.message,
       });
-      localStorage.setItem("userData", JSON.stringify(resData.user));
+      localStorage.setItem("userData", JSON.stringify(resData.data));
     } catch (error) {
       uiContext.setLoading(false);
       uiContext.setSnackBar({
@@ -99,10 +102,13 @@ export const UserContextProvider = (props) => {
     }
   };
 
+  /*
+    This function is used to delete a user account.
+   */
   const deleteUserHandler = async (userID, token) => {
     try {
       uiContext.setLoading(true);
-      const res = await fetch(`url/${userID}`, {
+      const res = await fetch(`https://web9ja-backend.onrender.com/users/delete/${userID}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -115,9 +121,10 @@ export const UserContextProvider = (props) => {
         throw new Error(errorMessage);
       }
       const resData = await res.json();
+      console.log("resdata", resData);
       uiContext.setLoading(false);
-      authContext.setToken(null);
       setUserData(null);
+      uiContext.setOpenUpdateForm(false);
       localStorage.removeItem("token");
       localStorage.removeItem("userData");
       uiContext.setSnackBar({
@@ -125,6 +132,7 @@ export const UserContextProvider = (props) => {
         success: true,
         message: resData.message,
       });
+      return true;
     } catch (error) {
       uiContext.setLoading(false);
       uiContext.setSnackBar({
