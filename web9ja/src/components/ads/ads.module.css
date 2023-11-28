@@ -23,6 +23,12 @@
     border-style: none;
 }
 
+.arrowicon{
+    width: 2rem;
+    height: 2rem;
+    background-color: #c4c4c4;
+}
+
 /* Color */
 
 .white{
@@ -149,7 +155,7 @@ p{
     letter-spacing: -2px;
 }
 
-/* navbar */
+/*  Navbar */
 
 .fullnav{
     width: 100vw;
@@ -264,22 +270,88 @@ p{
 }
 
 
-/* Ad page */
-.full{
+/* full display */
+.AdsGrid{
     width: 100vw;
-    height: 100vh;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 12rem 2.5rem ;
+    gap: 1.5rem;
+}
+.Adsfull{   
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center ;
     align-items: center;
 }
 
-.adsfull{
+.adcard{
+    padding: 0;
+    text-align: center;
+    border-radius: 8px;
+    height: 35rem;
+    gap: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 1.5rem 0rem;
+}
+
+.mainimg{
     width: 100%;
     height: 100%;
+    background-color: #c4c4c4;
+    border-radius: 0.25rem;
+}
+
+.subimglist{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cardend{
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
 }
+
+.subimg{
+    width: 3.5rem;
+    height: 3.5em;
+    background-color: #c4c4c4;
+    border-radius: 0.25rem;
+}
+
+.seller{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sellerdp{
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #000;
+    border-radius: 10rem;
+}
+
+
+
+
+
