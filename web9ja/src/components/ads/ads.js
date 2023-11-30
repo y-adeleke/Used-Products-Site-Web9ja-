@@ -14,7 +14,7 @@ const Ads = () => {
         </div>
       </div>
       <div className={classes.midnav}>
-        <h5 className={classes.black}>Web9JA</h5>
+      
         <ul className={classes.links}>
           <li className={classes.Active}>
             <h6 className={classes.black}>
@@ -22,7 +22,7 @@ const Ads = () => {
             </h6>
           </li>
           <li className={classes.Inactive}>
-            <h6 className={classes.black}>
+            <h6 className={classes.lightgray}>
               Posted ADs
             </h6>
           </li>
