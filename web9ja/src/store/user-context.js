@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useCallback } from "react";
 import UIContext from "./ui-context";
+import AdsContext from "./ads-context";
 
 const UserContext = createContext({
   userData: null,
@@ -12,6 +13,7 @@ const UserContext = createContext({
 export const UserContextProvider = (props) => {
   //consumption of other state from context
   const uiContext = useContext(UIContext);
+  const adsContext = useContext(AdsContext);
 
   const [userData, setUserDataState] = useState(null);
 
@@ -74,7 +76,6 @@ export const UserContextProvider = (props) => {
           phone: data.phone,
           address: data.address,
           profilePicture: data.profilePicture,
-          bio: data.bio,
         }),
       });
       if (!res.ok) {
@@ -104,6 +105,8 @@ export const UserContextProvider = (props) => {
 
   /*
     This function is used to delete a user account.
+    It then set the userData state to null.
+    get the list of ads, find the one with the user id and disable it. 
    */
   const deleteUserHandler = async (userID, token) => {
     try {
@@ -121,12 +124,17 @@ export const UserContextProvider = (props) => {
         throw new Error(errorMessage);
       }
       const resData = await res.json();
-      console.log("resdata", resData);
       uiContext.setLoading(false);
-      setUserData(null);
-      uiContext.setOpenUpdateForm(false);
-      localStorage.removeItem("token");
-      localStorage.removeItem("userData");
+      //get deleted user id
+      const deletedUserId = userData._id;
+      //disable all ads with the deleted user id
+      const newAds = adsContext.ads.map((ad) => {
+        if (ad.userId === deletedUserId) {
+          ad.isActive = false;
+        }
+        return ad;
+      });
+      adsContext.setAds(newAds);
       uiContext.setSnackBar({
         show: true,
         success: true,

@@ -31,7 +31,6 @@ const SignUp = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    userData.bio = "";
     userData.profilePicture = "";
     const data = { ...userData };
     data.phone = data.countryCode + data.phone;
@@ -102,7 +101,3 @@ const SignUp = () => {
   );
 };
 export default SignUp;
-
-/*
-  profilePicture: "",
-*/
