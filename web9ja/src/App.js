@@ -22,6 +22,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/ads" element={<AdsPage />} />
+        <Route path="/adpage" element={<AdPage />} />
         <Route path="/ad:id" element={<ProtectedRoute element={<AdPage />} />} />
         <Route path="/ads/adform" element={<ProtectedRoute element={<GlobalFormPage />} />} />
       </Routes>

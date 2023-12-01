@@ -1,5 +1,6 @@
 import classes from "./ads.module.css";
 import AdCard from "./ad card/AdCard";
+
 //Images
 import Furniture from "../../images/furniture.jpg";
 import Dress from "../../images/potrait.jpg";
@@ -102,9 +103,7 @@ const Ads = () => {
   const uiContext = useContext(UIContext);
 
   const adCardHandler = (id, ad) => {
-    console.log(id);
     console.log(ad);
-    console.log(userContext.userData?.favorites);
   };
 
   return (

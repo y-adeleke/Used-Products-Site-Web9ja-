@@ -151,8 +151,8 @@ const NewAdForm = () => {
       "https://m.media-amazon.com/images/I/71gnD2xoEBL._AC_SL1200_.jpg",
       "https://m.media-amazon.com/images/I/71Z5dqa2fPL._AC_SL1500_.jpg",
     ];
-    // data.pictures = data.imageUrls;
-    data.pictures = fakimages;
+    data.pictures = data.imageUrls;
+    //data.pictures = fakimages;
     data.userId = userContext.userData._id;
 
     adsContext.createAd(data, authContext.token);
