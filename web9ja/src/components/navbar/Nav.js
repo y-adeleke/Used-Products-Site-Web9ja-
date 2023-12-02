@@ -14,12 +14,12 @@ import LanguageIcon from "@mui/icons-material/Language";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import SearchIcon from "@mui/icons-material/Search";
 import CatImg from "../../images/cat.jpg";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../../store/auth-context";
 import UIContext from "../../store/ui-context";
 import UserContext from "../../store/user-context";
 import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import AdsContext from "../../store/ads-context";
 
 const Nav = () => {
@@ -29,6 +29,17 @@ const Nav = () => {
   const userContext = useContext(UserContext);
   const adsContext = useContext(AdsContext);
   const navigate = useNavigate();
+  const [isHome, setIsHome] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check if the current path is the homepage
+    setIsHome(location.pathname === '/');
+  }, [location]);
+
+  // Conditional class based on the current path
+  const navbarClasses = `${classes.navbar} ${!isHome ? classes.profileNav : ''}`;
+  const navbarLink = `${classes.navLink} ${!isHome ? classes.navLinkScrolled : ''}`;
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -71,7 +82,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className={` ${classes.navbar}`}>
+    <nav className={` ${navbarClasses}`}>
       <div
         style={{
           display: "flex",
@@ -87,22 +98,22 @@ const Nav = () => {
         </div>
 
         <ul className={classes.navLinks}>
-          <li className={`${classes.navAdLink} ${classes.navLink} ${uiContext.navActive === "explore" && classes.navAdLinkActive}`} onClick={exploreAdsHandler}>
+          <li className={`${classes.navAdLink} ${navbarLink} ${uiContext.navActive === "explore" && classes.navAdLinkActive}`} onClick={exploreAdsHandler}>
             Explore Ads <LanguageIcon className={classes.icon} />
           </li>
 
-          <li className={`${classes.navAdLink} ${classes.navLink} ${uiContext.navActive === "filter" && classes.navAdLinkActive} `} onClick={filterAdsHandler}>
+          <li className={`${classes.navAdLink} ${navbarLink} ${uiContext.navActive === "filter" && classes.navAdLinkActive} `} onClick={filterAdsHandler}>
             Filter <TuneIcon className={classes.icon} />
           </li>
 
           {authContext.token && (
-            <li className={`${classes.navAdLink} ${classes.navLink} ${uiContext.navActive === "myAds" && classes.navAdLinkActive}`} onClick={myAdsHandler}>
+            <li className={`${classes.navAdLink} ${navbarLink} ${uiContext.navActive === "myAds" && classes.navAdLinkActive}`} onClick={myAdsHandler}>
               My Ads <AdsClickIcon className={classes.icon} />
             </li>
           )}
 
           {authContext.token && (
-            <li className={`${classes.navAdLink} ${classes.navLink} ${uiContext.navActive === "myFav" && classes.navAdLinkActive}`} onClick={favoriteAdsHandler}>
+            <li className={`${classes.navAdLink} ${navbarLink} ${uiContext.navActive === "myFav" && classes.navAdLinkActive}`} onClick={favoriteAdsHandler}>
               My favorites <FavoriteBorderIcon className={classes.icon} />
             </li>
           )}

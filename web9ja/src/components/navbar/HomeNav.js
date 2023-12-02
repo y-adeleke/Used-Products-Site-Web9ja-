@@ -1,14 +1,34 @@
 import classes from "./Nav.module.css";
-import Logo from "../../images/WEB9JA-logo.png";
+import Logo from "../../images/WEB9JA-logos_transparent.png";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const HomeNav = () => {
   const authCtx = useContext(AuthContext);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // If the scroll position is more than 0, set isScrolled to true
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    // Add event listener on mount
+    window.addEventListener('scroll', handleScroll);
+
+    // Remove event listener on cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Set up the navbar classes dynamically
+  const navbarClasses = `${classes.navbar} ${isScrolled ? classes.scrolled : ''}`;
+  const navbarLink = `${classes.navLink} ${isScrolled ? classes.navLinkScrolled : ''}`;
 
   return (
-    <nav className={` ${classes.navbar}`}>
+    <nav className={navbarClasses}>
       <div
         style={{
           display: "flex",
@@ -21,10 +41,10 @@ const HomeNav = () => {
         </div>
 
         <ul className={classes.navLinks}>
-          <li className={classes.navLink}>Features</li>
-          <li className={classes.navLink}>About</li>
-          <li className={classes.navLink}>Reviews</li>
-          <li className={classes.navLink}>Contact</li>
+          <li className={navbarLink}>Features</li>
+          <li className={navbarLink}>About</li>
+          <li className={navbarLink}>Reviews</li>
+          <li className={navbarLink}>Contact</li>
         </ul>
       </div>
 
