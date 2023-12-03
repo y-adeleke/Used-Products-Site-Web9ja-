@@ -40,15 +40,19 @@ const Nav = () => {
   //Handling active nav link
   const exploreAdsHandler = () => {
     uiContext.setNavActive("explore");
+    adsContext.setSearch("");
   };
+  //Open filter side nav
   const filterAdsHandler = () => {
-    uiContext.setNavActive("filter");
+    uiContext.setSideNav(true);
   };
   const myAdsHandler = () => {
     uiContext.setNavActive("myAds");
+    adsContext.setSearch("");
   };
   const favoriteAdsHandler = () => {
     uiContext.setNavActive("myFav");
+    adsContext.setSearch("");
   };
 
   //Reset ad form data to null when user want to create a data
@@ -68,6 +72,11 @@ const Nav = () => {
   const updateProfileHandler = () => {
     navigate("/ads/adform");
     uiContext.setFormNavactive("user profile");
+  };
+
+  //Search handler
+  const searchChangeHandler = (e) => {
+    adsContext.setSearch(e.target.value);
   };
 
   return (
@@ -91,10 +100,6 @@ const Nav = () => {
             Explore Ads <LanguageIcon className={classes.icon} />
           </li>
 
-          <li className={`${classes.navAdLink} ${classes.navLink} ${uiContext.navActive === "filter" && classes.navAdLinkActive} `} onClick={filterAdsHandler}>
-            Filter <TuneIcon className={classes.icon} />
-          </li>
-
           {authContext.token && (
             <li className={`${classes.navAdLink} ${classes.navLink} ${uiContext.navActive === "myAds" && classes.navAdLinkActive}`} onClick={myAdsHandler}>
               My Ads <AdsClickIcon className={classes.icon} />
@@ -106,11 +111,15 @@ const Nav = () => {
               My favorites <FavoriteBorderIcon className={classes.icon} />
             </li>
           )}
+
+          <li className={`${classes.navAdLink} ${classes.navLink}`} onClick={filterAdsHandler}>
+            Filter <TuneIcon className={classes.icon} />
+          </li>
         </ul>
       </div>
 
       <div className={classes.searchBox}>
-        <input type="text" placeholder="Search for an AD" className={classes.search} />
+        <input type="text" placeholder="Search for an AD" className={classes.search} onChange={searchChangeHandler} />
         <SearchIcon className={classes.searchIcon} />
       </div>
       {!authContext.token && (

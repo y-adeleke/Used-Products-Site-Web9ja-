@@ -9,6 +9,8 @@ const UIContext = createContext({
   },
   formNavActive: "ad",
   navActive: "explore",
+  sideNav: false,
+  setSideNav: (bool) => {},
   setFormNavactive: (nav) => {},
   setNavActive: (nav) => {},
   setLoading: () => {},
@@ -19,6 +21,7 @@ export const UIContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [navActive, setNavActive] = useState("explore");
   const [formNavActive, setFormNavActive] = useState("ad");
+  const [sideNav, setSideNav] = useState(false);
   const [snackBar, setSnackBar] = useState({
     show: false,
     success: false,
@@ -42,11 +45,17 @@ export const UIContextProvider = (props) => {
     setFormNavActive(nav);
   };
 
+  const setSideNavHandler = (bool) => {
+    setSideNav(bool);
+  };
+
   const contextValue = {
     loading,
     formNavActive,
     navActive,
     snackBar,
+    sideNav,
+    setSideNav: setSideNavHandler,
     setFormNavactive: setFormNavActiveHandler,
     setLoading,
     setSnackBar,

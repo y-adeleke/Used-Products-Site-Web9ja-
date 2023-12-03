@@ -2,7 +2,6 @@
   height: calc(100vh - 60px);
   width: 100%;
   padding: 3rem;
-  z-index: -1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2rem;

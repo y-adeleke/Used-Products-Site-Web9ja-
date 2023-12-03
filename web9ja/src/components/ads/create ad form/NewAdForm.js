@@ -204,6 +204,7 @@ const NewAdForm = () => {
               <option value="clothing"> Clothings</option>
               <option value="beauty">Beauty</option>
               <option value="furniture">Furniture</option>
+              <option value="sports">Sports</option>
               <option value="other">Other</option>
             </select>
           </div>

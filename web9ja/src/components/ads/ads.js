@@ -109,57 +109,66 @@ const Ads = () => {
   return (
     <main className={classes.mainBox}>
       {adsContext?.ads?.map((ad, index) => {
-        console.log("ad", ad);
-        if (new Date(ad.endAt) < new Date()) ad.isActive = false;
-        if (uiContext.navActive === "explore") {
-          return (
-            <AdCard
-              key={index}
-              id={ad._id}
-              imageSrc={ad.pictures[0] || Laptop}
-              title={ad.itemName}
-              description={ad.description}
-              category={ad.category}
-              condition={ad.condition}
-              price={ad.price}
-              isActive={ad.isActive}
-              fav={userContext?.userData?.favorites?.includes(ad._id)}
-              onClick={() => adCardHandler(ad._id, ad)}
-            />
-          );
-        } else if (uiContext.navActive === "myAds" && userContext.userData?._id === ad.userId) {
-          return (
-            <AdCard
-              key={index}
-              id={ad._id}
-              imageSrc={ad.pictures[0] || Laptop}
-              title={ad.itemName}
-              description={ad.description}
-              category={ad.category}
-              condition={ad.condition}
-              price={ad.price}
-              isActive={ad.isActive}
-              fav={userContext?.userData?.favorites?.includes(ad._id)}
-              onClick={() => adCardHandler(ad._id, ad)}
-            />
-          );
-        } else if (uiContext.navActive === "myFav" && userContext.userData?.favorites?.includes(ad._id)) {
-          return (
-            <AdCard
-              key={index}
-              id={ad._id}
-              imageSrc={ad.pictures[0] || Laptop}
-              title={ad.itemName}
-              description={ad.description}
-              category={ad.category}
-              condition={ad.condition}
-              price={ad.price}
-              isActive={ad.isActive}
-              fav={userContext?.userData?.favorites?.includes(ad._id)}
-              onClick={() => adCardHandler(ad._id, ad)}
-            />
-          );
+        const isActive = new Date(ad.endAt) >= new Date();
+        const { category, condition, status } = adsContext.filterAdChoice;
+        const matchesCategory = category === "all" || category === ad.category;
+        const matchesCondition = condition === "all" || condition === ad.condition;
+        const matchesStatus = status === "all" || status === isActive;
+        const search = adsContext.searchData.trim().toLowerCase();
+        const matchesSearch = adsContext.searchData.trim().length === 0 || ad.itemName.trim().toLowerCase().includes(search);
+
+        if (matchesSearch && matchesCategory && matchesCondition && matchesStatus) {
+          if (uiContext.navActive === "explore") {
+            return (
+              <AdCard
+                key={ad._id}
+                id={ad._id}
+                imageSrc={ad.pictures[0] || Laptop}
+                title={ad.itemName}
+                description={ad.description}
+                category={ad.category}
+                condition={ad.condition}
+                price={ad.price}
+                isActive={isActive}
+                fav={userContext?.userData?.favorites?.includes(ad._id)}
+                onClick={() => adCardHandler(ad._id, ad)}
+              />
+            );
+          } else if (uiContext.navActive === "myAds" && userContext.userData?._id === ad.userId) {
+            return (
+              <AdCard
+                key={ad._id}
+                id={ad._id}
+                imageSrc={ad.pictures[0] || Laptop}
+                title={ad.itemName}
+                description={ad.description}
+                category={ad.category}
+                condition={ad.condition}
+                price={ad.price}
+                isActive={isActive}
+                fav={userContext?.userData?.favorites?.includes(ad._id)}
+                onClick={() => adCardHandler(ad._id, ad)}
+              />
+            );
+          } else if (uiContext.navActive === "myFav" && userContext.userData?.favorites?.includes(ad._id)) {
+            return (
+              <AdCard
+                key={ad._id}
+                id={ad._id}
+                imageSrc={ad.pictures[0] || Laptop}
+                title={ad.itemName}
+                description={ad.description}
+                category={ad.category}
+                condition={ad.condition}
+                price={ad.price}
+                isActive={isActive}
+                fav={userContext?.userData?.favorites?.includes(ad._id)}
+                onClick={() => adCardHandler(ad._id, ad)}
+              />
+            );
+          }
         }
+
         return null;
       })}
     </main>

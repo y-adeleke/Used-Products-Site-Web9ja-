@@ -7,6 +7,14 @@ import { adsFakeData } from "../components/ads/ads";
 const AdsContext = createContext({
   ads: [],
   activeAdData: null,
+  filterAdChoice: {
+    category: "all",
+    condition: "all",
+    status: "all",
+  },
+  searchData: "",
+  setFilterAdChoice: (data) => {},
+  setSearch: (data) => {},
   setAds: (data) => {},
   createAd: (data) => {},
   editAd: (data, adId) => {},
@@ -18,6 +26,12 @@ const AdsContext = createContext({
 export const AdsContextProvider = (props) => {
   const [ads, setAds] = useState(adsFakeData);
   const [activeAdData, setActiveAdData] = useState(null);
+  const [searchData, setSearch] = useState("");
+  const [filterAdChoice, setFilterAdChoice] = useState({
+    category: "all",
+    condition: "all",
+    status: "all",
+  });
 
   //UI store
   const uiContext = useContext(UIContext);
@@ -231,6 +245,31 @@ export const AdsContextProvider = (props) => {
     setAds(data);
   };
 
+  //this function is used to set the filter ad choice
+  const setFilterAdChoiceHandler = (type, data) => {
+    setFilterAdChoice((prev) => {
+      return {
+        ...prev,
+        [type]: data,
+      };
+    });
+  };
+
+  //This function is used to search for ads
+  const searchAdsHandler = (data) => {
+    if (searchData.trim().length === 0) {
+      setFilterAdChoice((prev) => {
+        return {
+          ...prev,
+          category: "all",
+          condition: "all",
+          status: "all",
+        };
+      });
+    }
+    setSearch(data);
+  };
+
   /*
   const askQuestionHandler = () => {};
 
@@ -240,6 +279,10 @@ export const AdsContextProvider = (props) => {
   const contextValue = {
     ads: ads,
     setAds: setAdsFunc,
+    filterAdChoice: filterAdChoice,
+    searchData: searchData,
+    setSearch: searchAdsHandler,
+    setFilterAdChoice: setFilterAdChoiceHandler,
     createAd: createAdHandler,
     editAd: editAdHandler,
     deleteAd: disableAdHandler,
