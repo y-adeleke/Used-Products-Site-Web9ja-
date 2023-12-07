@@ -14,6 +14,7 @@ import UserContext from "../../../store/user-context";
 import UIContext from "../../../store/ui-context";
 import AuthContext from "../../../store/auth-context";
 import { useNavigate } from "react-router-dom";
+import Person from "../../../images/person.jpeg";
 
 const AdFullDisplay = () => {
   //states
@@ -35,7 +36,6 @@ const AdFullDisplay = () => {
   useEffect(() => {
     const res = async () => {
       const resUser = await adsContext.getUserById(ad?.userId);
-      console.log(resUser);
       setAdOwner(resUser);
     };
     res();
@@ -45,7 +45,7 @@ const AdFullDisplay = () => {
   //this is used to check if the ad is active
   let isActive;
   if (ad) {
-    isActive = new Date(ad.endAt) >= new Date();
+    isActive = new Date(ad.endAt) >= new Date() && ad.isActive;
   }
 
   //this takes a date and returns the number of days ago
@@ -89,7 +89,10 @@ const AdFullDisplay = () => {
       askedBy: userContext?.userData?._id || "anonymous",
     };
     const res = await adsContext.askQuestion(data, ad._id);
-    if (res) setText("");
+    if (res) {
+      setText("");
+      uiContext.setSnackBar({ show: true, success: true, message: "Question sent" });
+    }
   };
 
   const answerQuestionHandler = async (q_id) => {
@@ -106,7 +109,10 @@ const AdFullDisplay = () => {
       return;
     }
     const res = await adsContext.answerQuestion(text, ad._id, q_id, authContext.token);
-    if (res) setText("");
+    if (res) {
+      setText("");
+      uiContext.setSnackBar({ show: true, success: true, message: "Answer sent" });
+    }
   };
 
   //Edit ad if user is the owner
@@ -213,14 +219,14 @@ const AdFullDisplay = () => {
         {navActive === "seller" && (
           <div className={classes.details}>
             <div className={classes.userImgBox}>
-              <img src={adOwner?.profilePicture} alt="" srcset="" className={classes.userImg} />
+              <img src={adOwner?.profilePicture ? adOwner?.profilePicture : Person} alt="" srcset="" className={classes.userImg} />
             </div>
             <div className={classes.userText}>
               <p>
                 <PersonIcon className={classes.icon} /> {adOwner?.username}
               </p>
               <p>
-                <EmailIcon className={classes.icon} /> <a href="gmail.com"> {adOwner?.email}</a>
+                <EmailIcon className={classes.icon} /> <a href="www.gmail.com"> {adOwner?.email}</a>
               </p>
               <p>
                 <LoyaltyIcon className={classes.icon} /> Member since {getYear(adOwner?.createdAt)}
