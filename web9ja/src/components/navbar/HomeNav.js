@@ -3,10 +3,13 @@ import Logo from "../../images/WEB9JA-logos_transparent.png";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const HomeNav = () => {
   const authCtx = useContext(AuthContext);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const { ads } = useParams();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,7 +27,7 @@ const HomeNav = () => {
   }, []);
 
   // Set up the navbar classes dynamically
-  const navbarClasses = `${classes.navbar} ${isScrolled ? classes.scrolled : ''}`;
+  const navbarClasses = `${classes.navbar} ${!ads ? classes.homeActive : ""} ${isScrolled ? classes.scrolled : ''}`;
   const navbarLink = `${classes.navLink} ${isScrolled ? classes.navLinkScrolled : ''}`;
 
   return (
