@@ -5,7 +5,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AuthContext from "../../../store/auth-context";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Login = () => {
   const [visible, setVisible] = useState(false);
@@ -65,12 +65,10 @@ const Login = () => {
         <span>Or</span>
         <hr />
       </div>
-      <button type="button" className={`${classes.outlineBtn} ${classes.submitBtn}`}>
+      <NavLink to="/ads" className={`${classes.outlineBtn} ${classes.submitBtn} ${classes.link}`}>
         <PersonOutlineIcon className={classes.outlineIcon} />
-        <Link to="/ads" className={classes.link}>
-          Continue as Guest
-        </Link>
-      </button>
+        Continue as Guest
+      </NavLink>
     </form>
   );
 };

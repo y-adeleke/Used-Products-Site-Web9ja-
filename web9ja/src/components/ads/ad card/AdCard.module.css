@@ -1,0 +1,145 @@
+.card {
+  width: 100%;
+  height: max-content;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 250px max-content;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  padding-bottom: 1rem;
+}
+.cardDisabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.cardDisabled:hover {
+  transform: scale(1) !important;
+}
+.card:hover {
+  transform: scale(1.02);
+}
+.cardImg {
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+.status {
+  padding: 0 15px;
+  position: absolute;
+  top: 15px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.status button {
+  border: none;
+  outline: none;
+  color: green;
+  padding: 5px 10px;
+  border-radius: 0.5rem;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: capitalize;
+  background: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+.favIconBox {
+  padding: 5px;
+  border-radius: 2rem;
+  background: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+.status .favIcon {
+  cursor: pointer;
+  color: green;
+}
+.active {
+  color: green !important;
+}
+.notActive {
+  color: red !important;
+}
+
+.favIconBox:hover {
+  scale: 1.1;
+}
+
+.adText {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  align-items: start;
+  height: 100%;
+  justify-content: space-between;
+}
+.textCon h3 {
+  text-align: start;
+  font-size: 1.3rem;
+  font-weight: bolder;
+  color: #333;
+  letter-spacing: 1.2px;
+  font-family: "Poppins", sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+}
+.textCon p {
+  text-align: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 300px;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  color: #585858;
+}
+
+.adTextBtm {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cardTags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cardTags button {
+  font-family: "Montserrat", sans-serif;
+  text-transform: capitalize;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 0.5rem;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: capitalize;
+  background: green;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cardTags button:first-child {
+  background-color: #0284c7;
+  color: #f0f9ff;
+}
+.cardTags button:nth-child(2) {
+  background-color: #15803d;
+  color: #f0fdf4;
+}
+.priceText {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  color: #333;
+  letter-spacing: 1.2px;
+  font-family: "Poppins", sans-serif;
+}

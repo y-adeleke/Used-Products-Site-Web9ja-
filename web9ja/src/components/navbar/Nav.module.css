@@ -12,7 +12,7 @@
 .brand {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #000;
+  color: green;
   text-decoration: none;
   font-family: "Lobster", sans-serif;
   letter-spacing: 2px;
@@ -56,9 +56,9 @@
   padding: 0 10px;
 }
 .navAdLinkActive {
-  border-bottom: 3px solid #000;
-  background-image: linear-gradient(to bottom, #f9fafb 50%, #00000013);
-  color: #000;
+  border-bottom: 3px solid green;
+  background-image: linear-gradient(to bottom, #f9fafb 50%, rgba(0, 128, 0, 0.128));
+  color: green;
 }
 
 .navBtns {
@@ -69,7 +69,7 @@
   align-items: center;
   gap: 20px;
 }
-.navBtns button {
+.navBtns .navBtn {
   border: none;
   padding: 7px 20px;
   cursor: pointer;
@@ -78,22 +78,25 @@
   text-transform: uppercase;
   font-size: 0.9rem;
   font-family: "Poppins", sans-serif;
-}
-.navBtns button:hover {
-  transform: scale(1.1);
-}
-.navBtns button:nth-child(1) {
-  background-color: #f9fafb;
-  border: 1px solid #000;
-  color: #000;
-}
-.navBtns button:nth-child(2) {
-  background-color: #000;
-  color: #fff;
-}
-.navBtns button * {
   text-decoration: none;
   color: inherit;
+}
+.navBtns .navBtn:hover {
+  transform: scale(1.1);
+}
+.navBtns .navBtn:nth-child(1) {
+  background-color: #f9fafb;
+  border: 1px solid green;
+  color: green;
+}
+
+.btnGreen {
+  background-color: green !important;
+  color: #fff !important;
+}
+.navBtns .navBtn:nth-child(2) {
+  background-color: green;
+  color: #fff;
 }
 
 .createAd {
@@ -107,7 +110,7 @@
   text-transform: uppercase;
   font-size: 0.8rem;
   font-family: "Poppins", sans-serif;
-  background-color: #000;
+  background-color: green;
   color: #fff;
 }
 .createAd:hover {
@@ -137,12 +140,14 @@
   outline: none;
   height: 40px;
   width: 100%;
-  border-radius: 0.5rem;
+  border-radius: none;
   padding: 0 10px;
   font-size: 14px;
   background-color: #efeded;
   transition: all 0.3s ease-in-out;
   color: #000;
+  border-right: 2px solid green;
+  border-left: 2px solid green;
 }
 
 .search:hover {
@@ -152,15 +157,13 @@
 .search:focus {
   border-bottom: none;
   border-radius: 0;
-  border-right: 2px solid #000;
-  border-left: 2px solid #000;
 }
 
 .searchIcon {
   padding: 5px;
   border-radius: 50%;
   margin-left: -40px;
-  background-color: #000;
+  background-color: rgb(1, 55, 1);
   color: #fff;
   transform: scale(1.3);
   cursor: pointer;

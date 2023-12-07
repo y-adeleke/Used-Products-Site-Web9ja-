@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useCallback } from "react";
 import UIContext from "./ui-context";
+import AdsContext from "./ads-context";
 
 const UserContext = createContext({
   userData: null,
@@ -12,6 +13,7 @@ const UserContext = createContext({
 export const UserContextProvider = (props) => {
   //consumption of other state from context
   const uiContext = useContext(UIContext);
+  const adsContext = useContext(AdsContext);
 
   const [userData, setUserDataState] = useState(null);
 
@@ -62,20 +64,23 @@ export const UserContextProvider = (props) => {
   const updateUserHandler = async (data, userID, token) => {
     try {
       uiContext.setLoading(true);
+      const formData = new FormData(); // Initialize a FormData object
+      // Append non-image data
+      formData.append("firstName", data.firstName);
+      formData.append("lastName", data.lastName);
+      formData.append("phone", data.phone);
+      formData.append("address", data.address);
+      // Append image data
+      if (data.profilePicture instanceof File) {
+        formData.append("picture", data.profilePicture);
+      }
+
       const res = await fetch(`https://web9ja-backend.onrender.com/users/update/${userID}`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          phone: data.phone,
-          address: data.address,
-          profilePicture: data.profilePicture,
-          bio: data.bio,
-        }),
+        body: formData,
       });
       if (!res.ok) {
         const resData = await res.json();
@@ -104,6 +109,8 @@ export const UserContextProvider = (props) => {
 
   /*
     This function is used to delete a user account.
+    It then set the userData state to null.
+    get the list of ads, find the one with the user id and disable it. 
    */
   const deleteUserHandler = async (userID, token) => {
     try {
@@ -121,12 +128,17 @@ export const UserContextProvider = (props) => {
         throw new Error(errorMessage);
       }
       const resData = await res.json();
-      console.log("resdata", resData);
       uiContext.setLoading(false);
-      setUserData(null);
-      uiContext.setOpenUpdateForm(false);
-      localStorage.removeItem("token");
-      localStorage.removeItem("userData");
+      //get deleted user id
+      const deletedUserId = userData._id;
+      //disable all ads with the deleted user id
+      const newAds = adsContext.ads.map((ad) => {
+        if (ad.userId === deletedUserId) {
+          ad.isActive = false;
+        }
+        return ad;
+      });
+      adsContext.setAds(newAds);
       uiContext.setSnackBar({
         show: true,
         success: true,

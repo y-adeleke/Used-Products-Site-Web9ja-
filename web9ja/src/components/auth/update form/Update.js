@@ -1,13 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import myClasses from "./update.module.css";
-import classes from "../authHelper.module.css";
+import classes from "../../global form page/globalForm.module.css";
 import UserContext from "../../../store/user-context";
 import AuthContext from "../../../store/auth-context";
-import UIContext from "../../../store/ui-context";
-import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 
 const UpdateForm = () => {
-  const [imageUrl, setImageUrl] = useState(null);
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -17,25 +14,27 @@ const UpdateForm = () => {
     address: "",
     profilePicture: "",
   });
+  const [imagePreview, setImagePreview] = useState([]);
 
   //State from context
   const authCtx = useContext(AuthContext);
-  const uiCtx = useContext(UIContext);
+  //const uiCtx = useContext(UIContext);
   const ctx = useContext(UserContext);
+  const navigate = useNavigate();
 
   //Set userData state from context
   useEffect(() => {
     if (!ctx.userData) return;
-    console.log(ctx.userData);
     setUserData({
       firstName: ctx.userData?.firstName,
       lastName: ctx.userData?.lastName,
       email: ctx.userData?.email,
       username: ctx.userData?.username,
-      phone: ctx.userData?.phone,
+      phone: ctx.userData?.phone.includes("+") ? ctx.userData?.phone : "+" + ctx.userData?.phone,
       address: ctx.userData?.address,
       profilePicture: ctx.userData?.profilePicture,
     });
+    setImagePreview(ctx.userData?.profilePicture);
   }, [ctx.userData]);
 
   //Change handler (for input fields)
@@ -50,90 +49,96 @@ const UpdateForm = () => {
   };
 
   //Image handler (for profile picture)
+  //Image handler (for ads picture)
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-      console.log(imageUrl);
-    }
-    console.log(file);
+    // Generate Data URLs for previews
+    const imagePriviewUrl = URL.createObjectURL(file);
+    // Update state with the new files and previews
+    setUserData((data) => ({
+      ...data,
+      profilePicture: file,
+    }));
+    setImagePreview(imagePriviewUrl);
+
+    e.target.value = null;
   };
 
   //Submit handler (for updating user form submission)
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    userData.bio = "";
     ctx.updateUser(userData, ctx.userData._id, authCtx.token);
   };
 
   //Delete handler (for deleting user )
   const deleteHandler = async () => {
+    const userRes = window.confirm("Are you sure you want to delete your account?");
+    if (!userRes) return;
     const res = await ctx.deleteUser(ctx.userData._id, authCtx.token);
     if (res) {
       authCtx.setToken(null);
+      ctx.setUserData(null);
+      authCtx.logOut();
+      navigate("/ads");
     }
   };
 
-  const closeFormHandler = () => {
-    uiCtx.setOpenUpdateForm(false);
-  };
-
   return (
-    <main className={`${uiCtx.openUpdateForm && myClasses.overlay}`}>
-      <div className={` ${!uiCtx.updateForm && myClasses.conHide} ${uiCtx.openUpdateForm && myClasses.container} `}>
-        <form className={`${classes.signUpForm} ${myClasses.updateForm}`} onSubmit={onSubmitHandler}>
-          <CloseIcon className={myClasses.closeIcon} onClick={closeFormHandler} />
-          <h2>Update Your Information</h2>
-
-          <div className={myClasses.nameBox}>
-            <div className={myClasses.inputBox}>
-              <label htmlFor="firstName">First Name</label>
-              <input name="firstName" type="text" placeholder="First Name" onChange={changeHandler} value={userData.firstName} />
-            </div>
-            <div className={myClasses.inputBox}>
-              <label htmlFor="lastName">Last Name</label>
-              <input name="lastName" type="text" placeholder="Last Name" onChange={changeHandler} value={userData.lastName} />
-            </div>
-          </div>
-
-          <div className={`${myClasses.inputBox} ${myClasses.inputBoxDisabled}`}>
-            <label htmlFor="email">Email</label>
-            <input name="email" type="email" placeholder="Email" onChange={changeHandler} disabled value={userData.email} />
-          </div>
-
-          <div className={`${myClasses.inputBox} ${myClasses.inputBoxDisabled}`}>
-            <label htmlFor="username">Username</label>
-            <input name="username" type="text" placeholder="Unique username" onChange={changeHandler} disabled value={userData.username} />
-          </div>
-
-          <div className={myClasses.inputBox}>
-            <label htmlFor="phone">Phone</label>
-            <input name="phone" type="text" placeholder="+123456789" className={myClasses.phoneText} onChange={changeHandler} value={userData.phone} />
-          </div>
-
-          <div className={myClasses.inputBox}>
-            <label htmlFor="address">Address</label>
-            <input name="address" type="text" placeholder="Address" onChange={changeHandler} className={myClasses.address} value={userData.address} />
-          </div>
-
-          <div className={myClasses.profile}>
-            <button type="button">Upload Profile</button>
-            <input type="file" onChange={handleImageChange} className={myClasses.fileInput} />
-          </div>
-
-          <button type="submit" className={classes.submitBtn}>
-            Update Account
-          </button>
-          <button type="button" className={`${classes.submitBtn} ${myClasses.dangerBtn}`} onClick={deleteHandler}>
-            Delete Account
-          </button>
-        </form>
+    <form onSubmit={onSubmitHandler}>
+      <div className={classes.btnCon}>
+        <button
+          type="button"
+          onClick={deleteHandler}
+          style={{
+            backgroundColor: "red",
+          }}>
+          Delete Account
+        </button>
+        <button type="submit">Update Account</button>
       </div>
-    </main>
+
+      <div className={classes.inputFormBox}>
+        <div className={classes.inputBox}>
+          <label htmlFor="firstName">First Name</label>
+          <input name="firstName" type="text" placeholder="First Name" onChange={changeHandler} value={userData.firstName} />
+        </div>
+
+        <div className={classes.inputBox}>
+          <label htmlFor="lastName">Last Name</label>
+          <input name="lastName" type="text" placeholder="Last Name" onChange={changeHandler} value={userData.lastName} />
+        </div>
+
+        <div className={classes.inputBox}>
+          <label htmlFor="email">Email</label>
+          <input name="email" type="email" placeholder="Email" onChange={changeHandler} disabled value={userData.email} />
+        </div>
+
+        <div className={classes.inputBox}>
+          <label htmlFor="username">Username</label>
+          <input name="username" type="text" placeholder="Unique username" onChange={changeHandler} disabled value={userData.username} />
+        </div>
+
+        <div className={classes.inputBox}>
+          <label htmlFor="phone">Phone</label>
+          <input name="phone" type="text" placeholder="+123456789" onChange={changeHandler} value={userData.phone} />
+        </div>
+
+        <div className={classes.inputBox}>
+          <label htmlFor="address">Address</label>
+          <input name="address" type="text" placeholder="Address" onChange={changeHandler} value={userData.address} />
+        </div>
+      </div>
+      <div className={classes.imgContainer}>
+        <div className={classes.imgSingleBoxProfile}>
+          <img src={imagePreview} alt="" srcSet="" />
+        </div>
+
+        <div className={classes.profile}>
+          <button type="button">Upload Profile</button>
+          <input type="file" onChange={handleImageChange} className={classes.fileInput} />
+        </div>
+      </div>
+    </form>
   );
 };
 export default UpdateForm;

@@ -15,7 +15,7 @@ export const AuthContextProvider = (props) => {
   const { setUserData } = useContext(UserContext);
 
   //State
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   /*
   This useEffect is used to check if the token is still valid when the page is refreshed.

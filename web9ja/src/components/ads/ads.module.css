@@ -1,0 +1,22 @@
+.mainBox {
+  height: calc(100vh - 60px);
+  width: 100%;
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  animation: scrollUp 0.7s ease-in-out;
+}
+
+@keyframes scrollUp {
+  0% {
+    transform: translateY(20%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

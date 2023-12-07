@@ -17,14 +17,17 @@ import CatImg from "../../images/cat.jpg";
 import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import UIContext from "../../store/ui-context";
+import UserContext from "../../store/user-context";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import AdsContext from "../../store/ads-context";
 
 const Nav = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [active, setActive] = useState("explore"); // for active link
   const authContext = useContext(AuthContext);
   const uiContext = useContext(UIContext);
+  const userContext = useContext(UserContext);
+  const adsContext = useContext(AdsContext);
   const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
@@ -34,25 +37,46 @@ const Nav = () => {
     setAnchorElUser(null);
   };
 
+  //Handling active nav link
   const exploreAdsHandler = () => {
-    setActive("explore");
+    uiContext.setNavActive("explore");
+    adsContext.setSearch("");
   };
+  //Open filter side nav
   const filterAdsHandler = () => {
-    setActive("filter");
+    uiContext.setSideNav(true);
   };
   const myAdsHandler = () => {
-    setActive("myAds");
+    uiContext.setNavActive("myAds");
+    adsContext.setSearch("");
   };
   const favoriteAdsHandler = () => {
-    setActive("myFav");
+    uiContext.setNavActive("myFav");
+    adsContext.setSearch("");
   };
 
+  //Reset ad form data to null when user want to create a data
+  //set the active form to ad
+  const openAdFormHandler = () => {
+    adsContext.setActiveAdData(null);
+    uiContext.setFormNavactive("ad");
+  };
+
+  //Logout handler
   const logoutHandler = () => {
     authContext.logOut();
+    uiContext.setNavActive("explore");
   };
+
+  //Update profile handler
   const updateProfileHandler = () => {
-    console.log("before");
-    uiContext.setOpenUpdateForm(true);
+    navigate("/ads/adform");
+    uiContext.setFormNavactive("user profile");
+  };
+
+  //Search handler
+  const searchChangeHandler = (e) => {
+    adsContext.setSearch(e.target.value);
   };
 
   return (
@@ -72,30 +96,30 @@ const Nav = () => {
         </div>
 
         <ul className={classes.navLinks}>
-          <li className={`${classes.navAdLink} ${classes.navLink} ${active === "explore" && classes.navAdLinkActive}`} onClick={exploreAdsHandler}>
+          <li className={`${classes.navAdLink} ${classes.navLink} ${uiContext.navActive === "explore" && classes.navAdLinkActive}`} onClick={exploreAdsHandler}>
             Explore Ads <LanguageIcon className={classes.icon} />
           </li>
 
-          <li className={`${classes.navAdLink} ${classes.navLink} ${active === "filter" && classes.navAdLinkActive} `} onClick={filterAdsHandler}>
-            Filter <TuneIcon className={classes.icon} />
-          </li>
-
           {authContext.token && (
-            <li className={`${classes.navAdLink} ${classes.navLink} ${active === "myAds" && classes.navAdLinkActive}`} onClick={myAdsHandler}>
+            <li className={`${classes.navAdLink} ${classes.navLink} ${uiContext.navActive === "myAds" && classes.navAdLinkActive}`} onClick={myAdsHandler}>
               My Ads <AdsClickIcon className={classes.icon} />
             </li>
           )}
 
           {authContext.token && (
-            <li className={`${classes.navAdLink} ${classes.navLink} ${active === "myFav" && classes.navAdLinkActive}`} onClick={favoriteAdsHandler}>
+            <li className={`${classes.navAdLink} ${classes.navLink} ${uiContext.navActive === "myFav" && classes.navAdLinkActive}`} onClick={favoriteAdsHandler}>
               My favorites <FavoriteBorderIcon className={classes.icon} />
             </li>
           )}
+
+          <li className={`${classes.navAdLink} ${classes.navLink}`} onClick={filterAdsHandler}>
+            Filter <TuneIcon className={classes.icon} />
+          </li>
         </ul>
       </div>
 
       <div className={classes.searchBox}>
-        <input type="text" placeholder="Search for an AD" className={classes.search} />
+        <input type="text" placeholder="Search for an AD" className={classes.search} onChange={searchChangeHandler} />
         <SearchIcon className={classes.searchIcon} />
       </div>
       {!authContext.token && (
@@ -110,12 +134,14 @@ const Nav = () => {
             display: "flex",
             alignItems: "center",
           }}>
-          <button className={classes.createAd}>Create Ad &#43;</button>
+          <NavLink to="/ads/adform" onClick={openAdFormHandler} className={classes.createAd} style={{ textDecoration: "none", color: "#fff" }}>
+            Create Ad &#43;
+          </NavLink>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar
                 alt="A"
-                src={CatImg}
+                src={userContext.userData?.profilePicture ? userContext.userData?.profilePicture : CatImg}
                 style={{
                   backgroundColor: "#1B7339",
                   color: "#f6f6f6",
@@ -145,10 +171,12 @@ const Nav = () => {
               }}>
               <Typography textAlign="center">Profile</Typography>
             </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography textAlign="center" onClick={logoutHandler}>
-                Logout
-              </Typography>
+            <MenuItem
+              onClick={() => {
+                handleCloseUserMenu();
+                logoutHandler();
+              }}>
+              <Typography textAlign="center">Logout</Typography>
             </MenuItem>
           </Menu>
         </div>

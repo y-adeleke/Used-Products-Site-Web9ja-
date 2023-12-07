@@ -2,7 +2,7 @@ import * as React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import UIContext from "../../store/ui-context";
+import UIContext from "../../../store/ui-context";
 import { useContext, useEffect } from "react";
 
 export default function SimpleSnackbar(props) {
@@ -33,9 +33,5 @@ export default function SimpleSnackbar(props) {
     </React.Fragment>
   );
 
-  return (
-    <div>
-      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose} message={uiContext.snackBar.message} action={action} />
-    </div>
-  );
+  return <div>{uiContext.snackBar.show && <Snackbar open={open} autoHideDuration={4000} onClose={handleClose} message={uiContext.snackBar.message} action={action} />}</div>;
 }

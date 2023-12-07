@@ -1,8 +1,12 @@
 import classes from "./Nav.module.css";
 import Logo from "../../images/WEB9JA-logo.png";
 import { NavLink } from "react-router-dom";
+import AuthContext from "../../store/auth-context";
+import { useContext } from "react";
 
 const HomeNav = () => {
+  const authCtx = useContext(AuthContext);
+
   return (
     <nav className={` ${classes.navbar}`}>
       <div
@@ -24,14 +28,23 @@ const HomeNav = () => {
         </ul>
       </div>
 
-      <div className={classes.navBtns}>
-        <button>
-          <NavLink to="/ads">Shop as guest</NavLink>
-        </button>
-        <button>
-          <NavLink to="/auth">Sign In</NavLink>
-        </button>
-      </div>
+      {!authCtx.token && (
+        <div className={classes.navBtns}>
+          <NavLink className={classes.navBtn} to="/ads">
+            Shop as guest
+          </NavLink>
+          <NavLink className={classes.navBtn} to="/auth">
+            Sign In
+          </NavLink>
+        </div>
+      )}
+      {authCtx.token && (
+        <div className={classes.navBtns}>
+          <NavLink to="/ads" className={`${classes.navBtn} ${classes.btnGreen}`}>
+            Explore
+          </NavLink>
+        </div>
+      )}
     </nav>
   );
 };
