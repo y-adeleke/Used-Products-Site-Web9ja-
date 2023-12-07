@@ -14,6 +14,7 @@ const UpdateForm = () => {
     address: "",
     profilePicture: "",
   });
+  const [imagePreview, setImagePreview] = useState([]);
 
   //State from context
   const authCtx = useContext(AuthContext);
@@ -33,6 +34,7 @@ const UpdateForm = () => {
       address: ctx.userData?.address,
       profilePicture: ctx.userData?.profilePicture,
     });
+    setImagePreview(ctx.userData?.profilePicture);
   }, [ctx.userData]);
 
   //Change handler (for input fields)
@@ -47,23 +49,19 @@ const UpdateForm = () => {
   };
 
   //Image handler (for profile picture)
+  //Image handler (for ads picture)
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        setUserData((prev) => {
-          return {
-            ...prev,
-            profilePicture: reader.result,
-          };
-        });
-      };
-      reader.onerror = (error) => {
-        alert("Error: ", error);
-      };
-    }
+    // Generate Data URLs for previews
+    const imagePriviewUrl = URL.createObjectURL(file);
+    // Update state with the new files and previews
+    setUserData((data) => ({
+      ...data,
+      profilePicture: file,
+    }));
+    setImagePreview(imagePriviewUrl);
+
+    e.target.value = null;
   };
 
   //Submit handler (for updating user form submission)
@@ -132,7 +130,7 @@ const UpdateForm = () => {
       </div>
       <div className={classes.imgContainer}>
         <div className={classes.imgSingleBoxProfile}>
-          <img src={userData.profilePicture} alt="" srcSet="" />
+          <img src={imagePreview} alt="" srcSet="" />
         </div>
 
         <div className={classes.profile}>

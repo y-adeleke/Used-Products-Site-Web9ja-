@@ -23,8 +23,9 @@ const NewAdForm = () => {
     price: "",
     location: "",
     endAt: tomorrow,
-    imageUrls: [],
+    pictures: [],
   });
+  const [imagePreviews, setImagePreviews] = useState([]);
 
   //UI context for sending any error messages
   const uiContext = useContext(UIContext);
@@ -34,7 +35,6 @@ const NewAdForm = () => {
 
   //populate the ad data for edit or create
   useEffect(() => {
-    console.log("tomorrow", tomorrow);
     if (adsContext.activeAdData) {
       setAdData((prev) => {
         return {
@@ -46,11 +46,12 @@ const NewAdForm = () => {
           price: adsContext.activeAdData.price,
           location: adsContext.activeAdData.location,
           endAt: dayjs(adsContext.activeAdData.endAt),
-          imageUrls: adsContext.activeAdData.imageUrls,
+          pictures: adsContext.activeAdData.pictures,
           id: adsContext.activeAdData.id,
         };
       });
-    } else
+      setImagePreviews((prev) => [...adsContext.activeAdData.pictures]);
+    } else {
       setAdData((prev) => {
         return {
           ...prev,
@@ -61,9 +62,12 @@ const NewAdForm = () => {
           price: "",
           location: "",
           endAt: tomorrow,
-          imageUrls: [],
+          pictures: [],
         };
       });
+      setImagePreviews([]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adsContext.activeAdData]);
 
   //Change handler for date picker
@@ -78,7 +82,8 @@ const NewAdForm = () => {
 
   //Image handler (for ads picture)
   const handleImageChange = (e) => {
-    if (adData.imageUrls.length >= 5) {
+    const files = Array.from(e.target.files); // Convert FileList to an array
+    if (adData.pictures.length + files.length > 5) {
       uiContext.setSnackBar({
         show: "Error",
         success: false,
@@ -87,23 +92,19 @@ const NewAdForm = () => {
       e.target.value = null;
       return;
     }
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        setAdData((ad) => {
-          return {
-            ...adData,
-            imageUrls: [...ad.imageUrls, reader.result],
-          };
-        });
-      };
-      reader.onerror = (error) => {
-        alert("Error: ", error);
-      };
-      e.target.value = null;
-    }
+    // Generate Data URLs for previews
+    const newImagePreviews = files.map((file) => {
+      return URL.createObjectURL(file);
+    });
+
+    // Update state with the new files and previews
+    setAdData((ad) => ({
+      ...ad,
+      pictures: [...ad.pictures, ...files],
+    }));
+    setImagePreviews((prev) => [...prev, ...newImagePreviews]);
+
+    e.target.value = null;
   };
 
   //Remove image handler
@@ -111,9 +112,10 @@ const NewAdForm = () => {
     setAdData((ad) => {
       return {
         ...adData,
-        imageUrls: ad.imageUrls.filter((_, i) => i !== index),
+        pictures: ad.pictures.filter((_, i) => i !== index),
       };
     });
+    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
   };
 
   //Change handler for ad data
@@ -127,35 +129,47 @@ const NewAdForm = () => {
     });
   };
 
+  //Create ad handler
+  const createAdHandler = async (e) => {
+    e.preventDefault();
+    if (adData.pictures.length === 0) {
+      uiContext.setSnackBar({ show: true, success: false, message: "You must upload at least one image" });
+      return;
+    }
+    const data = { ...adData };
+    const endDatae = new Date(data.endAt);
+    data.endAt = endDatae;
+    data.userId = userContext.userData._id;
+    const res = await adsContext.createAd(data, authContext.token);
+    if (res) {
+      setAdData({
+        itemName: "",
+        description: "",
+        category: "electronics",
+        condition: "new",
+        price: "",
+        location: "",
+        endAt: tomorrow,
+        pictures: [],
+      });
+      setImagePreviews([]);
+    }
+  };
+
   //Edit ad handler
   const editAdHandler = (e) => {
     if (adData.id) {
+      if (adData.pictures.length === 0) {
+        uiContext.setSnackBar({ show: true, success: false, message: "You must upload at least one image" });
+        return;
+      }
       console.log(adData);
       e.preventDefault();
       const data = { ...adData };
       const endDatae = new Date(data.endAt);
       data.endAt = endDatae;
-      data.pictures = data.imageUrls;
       adsContext.editAd(data, adData.id, authContext.token);
     }
-  };
-
-  //Create ad handler
-  const createAdHandler = (e) => {
-    e.preventDefault();
-    const data = { ...adData };
-    const endDatae = new Date(data.endAt);
-    data.endAt = endDatae;
-    const fakimages = [
-      "https://m.media-amazon.com/images/I/61qauX2nsSL._SX679_.jpg",
-      "https://m.media-amazon.com/images/I/71gnD2xoEBL._AC_SL1200_.jpg",
-      "https://m.media-amazon.com/images/I/71Z5dqa2fPL._AC_SL1500_.jpg",
-    ];
-    data.pictures = data.imageUrls;
-    //data.pictures = fakimages;
-    data.userId = userContext.userData._id;
-
-    adsContext.createAd(data, authContext.token);
   };
 
   //Delete ad handler
@@ -191,7 +205,7 @@ const NewAdForm = () => {
         <div className={classes.inputFormBox}>
           <div className={classes.inputBox}>
             <label htmlFor="itemName">Item Name</label>
-            <input type="text" name="itemName" id="itemName" placeholder="my product" onChange={changeHandler} value={adData.itemName} />
+            <input type="text" name="itemName" id="itemName" placeholder="my product" onChange={changeHandler} value={adData.itemName} disabled={adsContext.activeAdData ? true : false} />
           </div>
           <div className={classes.inputBox}>
             <label htmlFor="description">Description</label>
@@ -210,7 +224,7 @@ const NewAdForm = () => {
           </div>
           <div className={classes.inputBox}>
             <label htmlFor="condition">Condition</label>
-            <select name="condition" id="" onChange={changeHandler} value={adData.condition}>
+            <select name="condition" id="" onChange={changeHandler} value={adData.condition} disabled={adsContext.activeAdData ? true : false}>
               <option value="new"> New</option>
               <option value="used">Used</option>
               <option value="fair">fair</option>
@@ -225,7 +239,7 @@ const NewAdForm = () => {
           </div>
           <div className={classes.inputBox}>
             <label htmlFor="location">Location</label>
-            <input type="text" name="location" id="location" placeholder="Brampton, Ontario CA" onChange={changeHandler} value={adData.location} />
+            <input type="text" name="location" id="location" placeholder="Brampton, Ontario CA" onChange={changeHandler} value={adData.location} disabled={adsContext.activeAdData ? true : false} />
           </div>
           <div className={classes.inputBox}>
             <label htmlFor="">End Date</label>
@@ -234,9 +248,9 @@ const NewAdForm = () => {
         </div>
 
         <div className={classes.imgContainer}>
-          {adData.imageUrls.length > 0 && (
+          {adData.pictures.length > 0 && (
             <div className={classes.imgSingleBox}>
-              <img src={adData.imageUrls[0]} alt="" srcSet="" />
+              <img src={imagePreviews[0]} alt="" srcSet="" />
               <CloseIcon
                 className={classes.removeIcon}
                 onClick={() => {
@@ -247,7 +261,7 @@ const NewAdForm = () => {
           )}
 
           <div className={classes.imgScrollBox}>
-            {adData.imageUrls.map((url, index) => {
+            {imagePreviews.map((url, index) => {
               return (
                 index > 0 && (
                   <div className={classes.imgBox} key={index}>
@@ -266,7 +280,7 @@ const NewAdForm = () => {
 
           <div className={classes.profile}>
             <button type="button">Upload Images</button>
-            <input type="file" onChange={handleImageChange} className={classes.fileInput} />
+            <input type="file" onChange={handleImageChange} className={classes.fileInput} multiple />
           </div>
         </div>
       </form>

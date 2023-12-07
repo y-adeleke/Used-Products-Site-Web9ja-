@@ -374,3 +374,10 @@ input[type="file"]::file-selector-button {
   -ms-overflow-style: none;
   animation: scrollUp 0.7s ease-in-out;
 }
+
+input:disabled {
+  cursor: not-allowed;
+}
+select:disabled {
+  cursor: not-allowed;
+}

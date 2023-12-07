@@ -4,15 +4,28 @@ import Profile from "../../images/cat.jpg";
 import NewAdForm from "../ads/create ad form/NewAdForm";
 import AdCard from "../ads/ad card/AdCard";
 import AdsContext from "../../store/ads-context";
-import { useContext } from "react";
+import { useContext, useRef, useEffect } from "react";
 import UserContext from "../../store/user-context";
 import AuthContext from "../../store/auth-context";
 import { useNavigate } from "react-router-dom";
 import UIContext from "../../store/ui-context";
 import UpdateForm from "../auth/update form/Update";
 import { getDailyTimeSegment } from "../global helper/greetings";
+import { useLocation } from "react-router-dom";
 
 const GlobalForm = () => {
+  const location = useLocation();
+  const adRefs = useRef({});
+
+  // This useEffect will check if there is an adId in the location state, if there is, it will click the ad with the adId in the posted ads page....we are trigging this from the single ad page...so when you click an ad to edit, it will take you to the posted ads page and click the ad you clicked to edit
+  useEffect(() => {
+    const adId = location.state?.adId;
+    if (adId && adRefs.current[adId]) {
+      adRefs.current[adId].click();
+    }
+  }, [location]);
+
+  //contexts
   const adsContext = useContext(AdsContext);
   const userContext = useContext(UserContext);
   const authContext = useContext(AuthContext);
@@ -31,7 +44,7 @@ const GlobalForm = () => {
       price: ad.price,
       location: ad.location,
       endAt: ad.endAt,
-      imageUrls: ad.pictures,
+      pictures: ad.pictures,
       id: ad._id,
     });
   };
@@ -110,21 +123,25 @@ const GlobalForm = () => {
                 if (ad.userId !== userContext.userData._id) return null;
                 if (new Date(ad.endAt) < new Date()) ad.isActive = false;
                 return (
-                  <AdCard
-                    key={index}
+                  <div
                     id={ad._id}
-                    imageSrc={ad.pictures[0]}
-                    title={ad.itemName}
-                    description={ad.description}
-                    category={ad.category}
-                    condition={ad.condition}
-                    price={ad.price}
-                    isActive={ad.isActive}
-                    fav={userContext.userData.favorites.includes(ad._id)}
+                    ref={(el) => (adRefs.current[ad._id] = el)}
                     onClick={() => {
                       editAdShowHandler(ad);
-                    }}
-                  />
+                    }}>
+                    <AdCard
+                      key={index}
+                      id={ad._id}
+                      imageSrc={ad.pictures[0]}
+                      title={ad.itemName}
+                      description={ad.description}
+                      category={ad.category}
+                      condition={ad.condition}
+                      price={ad.price}
+                      isActive={ad.isActive}
+                      fav={userContext.userData.favorites.includes(ad._id)}
+                    />
+                  </div>
                 );
               })}
             </main>

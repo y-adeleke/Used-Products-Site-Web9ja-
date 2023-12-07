@@ -64,19 +64,23 @@ export const UserContextProvider = (props) => {
   const updateUserHandler = async (data, userID, token) => {
     try {
       uiContext.setLoading(true);
+      const formData = new FormData(); // Initialize a FormData object
+      // Append non-image data
+      formData.append("firstName", data.firstName);
+      formData.append("lastName", data.lastName);
+      formData.append("phone", data.phone);
+      formData.append("address", data.address);
+      // Append image data
+      if (data.profilePicture instanceof File) {
+        formData.append("picture", data.profilePicture);
+      }
+
       const res = await fetch(`https://web9ja-backend.onrender.com/users/update/${userID}`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          phone: data.phone,
-          address: data.address,
-          profilePicture: data.profilePicture,
-        }),
+        body: formData,
       });
       if (!res.ok) {
         const resData = await res.json();
