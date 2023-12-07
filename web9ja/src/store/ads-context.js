@@ -2,22 +2,38 @@ import { createContext } from "react";
 import UIContext from "./ui-context";
 import UserContext from "./user-context";
 import { useState, useContext, useEffect } from "react";
-import { adsFakeData } from "../components/ads/ads";
 
 const AdsContext = createContext({
   ads: [],
   activeAdData: null,
+  filterAdChoice: {
+    category: "all",
+    condition: "all",
+    status: "all",
+  },
+  searchData: "",
+  setFilterAdChoice: (data) => {},
+  setSearch: (data) => {},
   setAds: (data) => {},
   createAd: (data) => {},
   editAd: (data, adId) => {},
   deleteAd: (adId, token) => {},
   toggleFavourite: (userID, adId, token) => {},
   setActiveAdData: (adId) => {},
+  askQuestion: (data, adId) => {},
+  answerQuestion: (answerText, adId, questionId, token) => {},
+  getUserById: (userId) => {},
 });
 
 export const AdsContextProvider = (props) => {
-  const [ads, setAds] = useState(adsFakeData);
+  const [ads, setAds] = useState([]);
   const [activeAdData, setActiveAdData] = useState(null);
+  const [searchData, setSearch] = useState("");
+  const [filterAdChoice, setFilterAdChoice] = useState({
+    category: "all",
+    condition: "all",
+    status: "all",
+  });
 
   //UI store
   const uiContext = useContext(UIContext);
@@ -31,18 +47,26 @@ export const AdsContextProvider = (props) => {
 
   //This function is used to create an ad
   const createAdHandler = async (data, token) => {
-    console.log(data);
+    const formData = new FormData(); // Initialize a FormData object
+    Object.keys(data).forEach((key) => {
+      if (key !== "pictures") {
+        formData.append(key, data[key]);
+      }
+    });
 
+    data.pictures.forEach((file, index) => {
+      formData.append("pictures", file);
+    });
     try {
       uiContext.setLoading(true);
       const res = await fetch(`https://web9ja-backend.onrender.com/ads`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data),
+        body: formData,
       });
+
       if (!res.ok) {
         const resData = await res.json();
         const errorMessage = resData.message || "Unable to create Ad!...";
@@ -59,6 +83,7 @@ export const AdsContextProvider = (props) => {
         success: true,
         message: resData.message,
       });
+      return true;
     } catch (error) {
       console.log(error);
       uiContext.setLoading(false);
@@ -74,20 +99,37 @@ export const AdsContextProvider = (props) => {
   const editAdHandler = async (data, adId, token) => {
     try {
       uiContext.setLoading(true);
+      const formData = new FormData();
+      // Append non-image data
+      formData.append("category", data.category);
+      formData.append("description", data.description);
+      formData.append("price", data.price);
+      formData.append("endAt", data.endAt);
+
+      // Append images - differentiate between File objects and URLs
+      data.pictures.forEach((picture) => {
+        if (typeof picture === "string") {
+          formData.append("retainedPictures", picture); // Retained image URL
+        } else {
+          formData.append("pictures", picture); // New image File
+        }
+      });
+
       const res = await fetch(`https://web9ja-backend.onrender.com/ads/${adId}`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ category: data.category, description: data.description, price: data.price, pictures: data.pictures, endAt: data.endAt }),
+        body: formData,
       });
+
       if (!res.ok) {
         const resData = await res.json();
         const errorMessage = resData.message || "Unable to edit Ad!...";
         throw new Error(errorMessage);
       }
       const resData = await res.json();
+      console.log(resData);
       uiContext.setLoading(false);
       //find the ad with the id
       const adIndex = ads.findIndex((ad) => ad._id === adId);
@@ -231,23 +273,152 @@ export const AdsContextProvider = (props) => {
     setAds(data);
   };
 
-  /*
-  const askQuestionHandler = () => {};
+  //this function is used to set the filter ad choice
+  const setFilterAdChoiceHandler = (type, data) => {
+    setFilterAdChoice((prev) => {
+      return {
+        ...prev,
+        [type]: data,
+      };
+    });
+  };
 
-  const answerQuestionHandler = () => {};
- */
+  //This function is used to search for ads by title
+  const searchAdsHandler = (data) => {
+    if (searchData.trim().length === 0) {
+      setFilterAdChoice((prev) => {
+        return {
+          ...prev,
+          category: "all",
+          condition: "all",
+          status: "all",
+        };
+      });
+    }
+    setSearch(data);
+  };
+
+  //This function is used to ask a question
+  const askQuestionHandler = async (data, adId) => {
+    try {
+      uiContext.setLoading(true);
+      const res = await fetch(`https://web9ja-backend.onrender.com/ads/questions/${adId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const resData = await res.json();
+        const errorMessage = resData.message || "Unable to perform this action!...";
+        throw new Error(errorMessage);
+      }
+      const resData = await res.json();
+      const newAd = resData.ad;
+      const adIndex = ads.findIndex((ad) => ad._id === adId);
+      const newAds = [...ads];
+      newAds[adIndex] = newAd;
+      setAds(newAds);
+      uiContext.setLoading(false);
+      uiContext.setSnackBar({
+        show: true,
+        success: true,
+        message: resData.message,
+      });
+      return true;
+    } catch (error) {
+      uiContext.setLoading(false);
+      uiContext.setSnackBar({
+        show: true,
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+  //This function is used to answer a question
+  const answerQuestionHandler = async (answerText, adId, questionId, token) => {
+    try {
+      uiContext.setLoading(true);
+      const res = await fetch(`https://web9ja-backend.onrender.com/ads/questions/${adId}/answer/${questionId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          answerText: answerText,
+        }),
+      });
+      if (!res.ok) {
+        const resData = await res.json();
+        const errorMessage = resData.message || "Unable to perform this action!...";
+        throw new Error(errorMessage);
+      }
+      const resData = await res.json();
+      const newAd = resData.ad;
+      const adIndex = ads.findIndex((ad) => ad._id === adId);
+      const newAds = [...ads];
+      newAds[adIndex] = newAd;
+      setAds(newAds);
+      uiContext.setLoading(false);
+      uiContext.setSnackBar({
+        show: true,
+        success: true,
+        message: resData.message,
+      });
+      return true;
+    } catch (error) {
+      uiContext.setLoading(false);
+      uiContext.setSnackBar({
+        show: true,
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+  //Get user by id (this function is used to get the user data of the ad owner)
+  const getUserById = async (userId) => {
+    try {
+      uiContext.setLoading(true);
+      const res = await fetch(`https://web9ja-backend.onrender.com/users/${userId}`);
+      if (!res.ok) {
+        const resData = await res.json();
+        const errorMessage = resData.message || "Unable to get user!...";
+        throw new Error(errorMessage);
+      }
+      const resData = await res.json();
+      console.log(resData);
+      uiContext.setLoading(false);
+      return resData.data;
+    } catch (error) {
+      uiContext.setLoading(false);
+      uiContext.setSnackBar({
+        show: true,
+        success: false,
+        message: error.message,
+      });
+    }
+  };
 
   const contextValue = {
     ads: ads,
     setAds: setAdsFunc,
+    filterAdChoice: filterAdChoice,
+    searchData: searchData,
+    setSearch: searchAdsHandler,
+    setFilterAdChoice: setFilterAdChoiceHandler,
     createAd: createAdHandler,
     editAd: editAdHandler,
     deleteAd: disableAdHandler,
     toggleFavourite: toggleFavouriteHamdler,
     activeAdData: activeAdData,
     setActiveAdData: activeAdDataHandler,
-    // askQuestion: askQuestionHandler,
-    // answerQuestion: answerQuestionHandler,
+    askQuestion: askQuestionHandler,
+    answerQuestion: answerQuestionHandler,
+    getUserById: getUserById,
   };
 
   return <AdsContext.Provider value={contextValue}>{props.children}</AdsContext.Provider>;
