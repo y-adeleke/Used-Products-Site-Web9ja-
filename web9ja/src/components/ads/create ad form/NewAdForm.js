@@ -184,7 +184,7 @@ const NewAdForm = () => {
     <div className={classes.formConatiner}>
       <form onSubmit={createAdHandler}>
         <div className={classes.btnCon}>
-          {adsContext.activeAdData && (
+          {adsContext.activeAdData && adsContext.activeAdData.isActive && (
             <button
               type="button"
               onClick={deleteAdHandler}

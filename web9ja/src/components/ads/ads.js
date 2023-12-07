@@ -20,7 +20,7 @@ const Ads = () => {
   return (
     <main className={classes.mainBox}>
       {adsContext?.ads?.map((ad, index) => {
-        const isActive = new Date(ad.endAt) >= new Date();
+        const isActive = new Date(ad.endAt) >= new Date() && ad.isActive;
         const { category, condition, status } = adsContext.filterAdChoice;
         const matchesCategory = category === "all" || category === ad.category;
         const matchesCondition = condition === "all" || condition === ad.condition;
@@ -86,3 +86,12 @@ const Ads = () => {
   );
 };
 export default Ads;
+
+//is active --done
+//href email--done
+//clear text input afer comment --done
+//if you disable, dont see delete button. --done
+//set userprofile to default if no profile picture --done
+
+//validations
+//see more button implementation
