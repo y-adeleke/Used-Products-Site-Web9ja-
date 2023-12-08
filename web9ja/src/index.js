@@ -13,15 +13,24 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./store/auth-context";
+import { UserContextProvider } from "./store/user-context";
+import { UIContextProvider } from "./store/ui-context";
+import { AdsContextProvider } from "./store/ads-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </AuthContextProvider>
+    <UIContextProvider>
+      <UserContextProvider>
+        <AdsContextProvider>
+          <AuthContextProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </AuthContextProvider>
+        </AdsContextProvider>
+      </UserContextProvider>
+    </UIContextProvider>
   </React.StrictMode>
 );
 
