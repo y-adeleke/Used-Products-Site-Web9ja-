@@ -9,10 +9,30 @@ This project is a web application designed for buying and selling used products.
 * Install dependencies with npm install.
 *  Run npm start to launch the app in development mode.
 ## Features and functionalities
-User Authentication: Implemented in Login.js and SignUp.js, allowing users to securely access their accounts. This gives access to authorize users. 
-The app also has other features like giving the the user to shop as a guest. This allows users to view the ads posted. Furthermore, the app also gives the user the option to update or delete the account created. In addition, if the user wants to delete their account, there is a pop up message asking the user if they want to delete the account or not. Also, when the ads are clicked, the user has the option of if they want to ask the seller about the product or not. The app also provide the necessary information about the seller such as emil, name and phone number. If users like product, they have the option to add it to their favorities.  
 
-Users can search for their product and also filter their search to make their search easier. 
+
+## User Authentication:
+
+* Implemented in Login.js and SignUp.js.
+* Allows users to securely access their accounts.
+* Provides authorization to users.
+## Guest Shopping Feature:
+
+* Users can shop as guests.
+* Allows users to view posted ads without an account.
+## Account Management:
+
+* Users have options to update or delete their accounts.
+* A confirmation pop-up appears when a user opts to delete their account.
+
+## Interaction with Ads:
+
+* When ads are clicked, users can choose to inquire about the product.
+* Provides seller information like email, name, and phone number.
+
+## Favorites Feature:
+
+Users can add products they like to their favorites list.
 
 
 Dynamic Content: AdCard.js displays various advertisements dynamically. 
