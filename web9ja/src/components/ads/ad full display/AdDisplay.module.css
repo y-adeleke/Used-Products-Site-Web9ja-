@@ -262,3 +262,55 @@
     transform: translateX(0%);
   }
 }
+
+@media screen and (min-width: 1440px) {
+  
+
+  .imgBox, .adContents {
+    width: 60%; /* Increase the width for larger screen real estate */
+  }
+
+  .activeImage {
+    /* Adjust image styling if needed */
+  }
+
+  .imagesBox {
+    padding: 30px; /* Increase padding for larger screens */
+    gap: 30px; /* Increase gap for spacing between images */
+  }
+
+  .image {
+    width: 150px; /* Increase the size of thumbnail images */
+    height: 150px;
+  }
+
+  .adContents {
+    padding: 60px; /* Increase padding inside the ad content box */
+  }
+
+  .adBriefDetailBox h2 {
+    font-size: 2rem; /* Increase font size for headings */
+  }
+
+  .description, .details {
+    font-size: 1.4rem; /* Increase font size for text content */
+  }
+
+  .price {
+    font-size: 1.8rem; /* Increase font size for price text */
+  }
+
+  .contentNav span {
+    font-size: 1.4rem; /* Increase font size for navigation text */
+  }
+
+  .qandABox h3 {
+    font-size: 2rem; /* Increase font size for Q&A headings */
+  }
+
+  .qandABox p, .qandABox textarea, .qandABox button {
+    font-size: 16px; /* Increase font size for Q&A text and buttons */
+  }
+
+  /* Additional styling adjustments for other elements as needed */
+}

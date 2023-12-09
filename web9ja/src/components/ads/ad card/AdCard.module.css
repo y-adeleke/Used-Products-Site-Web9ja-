@@ -143,3 +143,35 @@
   letter-spacing: 1.2px;
   font-family: "Poppins", sans-serif;
 }
+
+@media screen and (min-width: 1440px) {
+  .card {
+    grid-template-rows: 300px max-content;
+    padding-bottom: 2rem;
+    /* Increase the padding for more space inside the card */
+  }
+
+  .cardImg {
+    height: 300px; /* Increase the height of the image */
+  }
+
+  .status button, .cardTags button {
+    font-size: 14px; /* Slightly larger font size for buttons */
+    padding: 8px 12px; /* Increase padding for a larger button */
+  }
+
+  .textCon h3 {
+    font-size: 1.5rem; /* Larger font size for titles */
+  }
+
+  .textCon p {
+    font-size: 16px; /* Larger font size for text */
+    width: auto; /* Adjust width as needed for larger screens */
+  }
+
+  .priceText {
+    font-size: 1.4rem; /* Larger font size for price text */
+  }
+
+  /* Add additional styles for other elements as needed */
+}
