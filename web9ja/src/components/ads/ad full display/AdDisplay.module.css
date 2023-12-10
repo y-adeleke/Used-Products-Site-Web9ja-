@@ -270,9 +270,7 @@
     width: 60%; /* Increase the width for larger screen real estate */
   }
 
-  .activeImage {
-    /* Adjust image styling if needed */
-  }
+  
 
   .imagesBox {
     padding: 30px; /* Increase padding for larger screens */
@@ -313,4 +311,50 @@
   }
 
   /* Additional styling adjustments for other elements as needed */
+}
+@media screen and (min-width: 1440px) {
+  .imgBox, .adContents {
+    width: 60%; /* Increased width for larger screens
+  }
+  
+
+  .imagesBox {
+    padding: 30px; /* Increased padding for larger screens */
+    gap: 30px; /* Increased gap for spacing between images */
+  }
+
+  .image {
+    width: 150px; /* Increased size of thumbnail images */
+    height: 150px;
+  }
+
+  .adContents {
+    padding: 60px; /* Increased padding inside the ad content box */
+  }
+
+  .adBriefDetailBox h2 {
+    font-size: 2rem; /* Increased font size for headings */
+  }
+
+  .description, .details {
+    font-size: 1.4rem; /* Increased font size for text content */
+  }
+
+  .price {
+    font-size: 1.8rem; /* Increased font size for price text */
+  }
+
+  .contentNav span {
+    font-size: 1.4rem; /* Increased font size for navigation text */
+  }
+
+  .qandABox h3 {
+    font-size: 2rem; /* Increased font size for Q&A headings */
+  }
+
+  .qandABox p, .qandABox textarea, .qandABox button {
+    font-size: 16px; /* Increased font size for Q&A text and buttons */
+  }
+
+  /* Add more specific styles for other elements as needed */
 }

@@ -11,6 +11,15 @@
   -ms-overflow-style: none;
   animation: scrollUp 0.7s ease-in-out;
 }
+/* Media query for monitors */
+@media screen and (min-width: 1200px) {
+  .mainBox {
+    grid-template-columns: repeat(4, 1fr); /* Increase the number of columns */
+    padding: 4rem; /* Increase the padding */
+    grid-gap: 3rem; /* Increase the gap between grid items */
+    
+  }
+}
 
 @keyframes scrollUp {
   0% {
