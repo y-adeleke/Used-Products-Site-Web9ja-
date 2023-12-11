@@ -644,9 +644,9 @@ p {
 button {
   cursor: default !important;
 }
-/* Media Queries for Big Screens (Monitors) */
+
 @media screen and (min-width: 1081px) {
-  /* Styles for screens wider than 1024px (typical for monitors) */
+  
   body {
       font-size: 16px;
       
