@@ -12,6 +12,15 @@
   animation: scrollUp 0.7s ease-in-out;
 }
 
+@media screen and (min-width: 1200px) {
+  .mainBox {
+    grid-template-columns: repeat(4, 1fr); 
+    padding: 4rem; 
+    grid-gap: 3rem; 
+    
+  }
+}
+
 @keyframes scrollUp {
   0% {
     transform: translateY(20%);

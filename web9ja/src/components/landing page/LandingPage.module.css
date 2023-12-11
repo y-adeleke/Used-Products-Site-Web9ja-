@@ -3,6 +3,7 @@
 /*
     General Css
 */
+
 .fullpage{
   width: 100vw;
 }
@@ -149,6 +150,7 @@ section {
 h1 {
   color: #000;
   font-size: 5.61rem;
+  /* font-size: 1px; */
   font-style: normal;
 }
 
@@ -642,3 +644,21 @@ p {
 button {
   cursor: default !important;
 }
+
+@media screen and (min-width: 1081px) {
+  
+  body {
+      font-size: 16px;
+      
+  }
+
+  .container {
+      width: 80%;
+      margin: 0 auto;
+      
+  }
+
+
+}
+
+
