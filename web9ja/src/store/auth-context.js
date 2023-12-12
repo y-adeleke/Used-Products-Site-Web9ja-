@@ -9,6 +9,8 @@ const AuthContext = createContext({
   logOut: () => {},
 });
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 export const AuthContextProvider = (props) => {
   //Consumption of other state from context
   const uiContext = useContext(UIContext);
@@ -60,7 +62,7 @@ export const AuthContextProvider = (props) => {
   const signInHandler = async (email, password) => {
     try {
       uiContext.setLoading(true);
-      const res = await fetch("https://web9ja-backend.onrender.com/users/login", {
+      const res = await fetch(`${backendUrl}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -9,7 +9,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  clip-path: polygon(0 0, 100% 0, 88% 100%, 0% 100%);
 }
 
 .formBox {
@@ -82,28 +81,4 @@
     opacity: 1;
     transform: translate(0);
   }
-}
-
-@media only screen and (min-width: 1200px) {
-  .container {
-    grid-template-columns: repeat(3, 1fr);
-   
-  }
-  .imageBox {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-  
-  }
-  .formBox {
-    padding: 4rem;
-   
-  }
-  .btnContainer {
-    margin-top: 2rem;
-   
-  }
-  .btnContainer button {
-    padding: 0.75rem 1.5rem;
-  
-  }
- 
 }

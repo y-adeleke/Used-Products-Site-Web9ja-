@@ -26,10 +26,10 @@ const Ads = () => {
         const matchesCondition = condition === "all" || condition === ad.condition;
         const matchesStatus = status === "all" || status === isActive;
         const search = adsContext.searchData.trim().toLowerCase();
-        const matchesSearch = adsContext.searchData.trim().length === 0 || ad.itemName.trim().toLowerCase().includes(search);
+        const matchesSearch = adsContext.searchData.trim().length === 0 || ad.itemName.trim().toLowerCase().incl(search);
 
         if (matchesSearch && matchesCategory && matchesCondition && matchesStatus) {
-          if (uiContext.navActive === "explore") {
+          if (uiContext.navActive === "explore" && isActive) {
             return (
               <AdCard
                 key={ad._id}
@@ -92,6 +92,5 @@ export default Ads;
 //clear text input afer comment --done
 //if you disable, dont see delete button. --done
 //set userprofile to default if no profile picture --done
-
-//validations
-//see more button implementation
+//only see active ads. --done
+//sign-in-signupthign --done

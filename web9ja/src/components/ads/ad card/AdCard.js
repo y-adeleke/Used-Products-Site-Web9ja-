@@ -21,7 +21,7 @@ const AdCard = (props) => {
       <img src={props.imageSrc} alt="" srcSet="" height={250} className={classes.cardImg} />
       <div className={classes.status}>
         <button className={props.isActive ? classes.active : classes.notActive}>{props.isActive ? "🟢active" : "🔴disabled"}</button>
-        {authContext.token && (
+        {authContext.token && props.isActive && (
           <div className={classes.favIconBox}>
             {props.fav ? <FavoriteIcon className={classes.favIcon} onClick={toggleFavHandler} /> : <FavoriteBorderIcon className={classes.favIcon} onClick={toggleFavHandler} />}{" "}
           </div>

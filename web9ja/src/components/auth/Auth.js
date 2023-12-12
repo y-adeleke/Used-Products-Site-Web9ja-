@@ -4,7 +4,7 @@ import { useState } from "react";
 import classes from "./auth.module.css";
 
 const Auth = () => {
-  const [showSignIn, setShowSignIn] = useState(false);
+  const [showSignIn, setShowSignIn] = useState(true);
 
   const signupBtnHandler = () => {
     setShowSignIn(false);
@@ -20,11 +20,11 @@ const Auth = () => {
       <div className={classes.formBox}>
         <h2>WEB9JA</h2>
         <div className={classes.btnContainer}>
-          <button onClick={signupBtnHandler} className={`${!showSignIn && classes.btnActive} ${!showSignIn && classes.moveInRight}`}>
-            Sign Up
-          </button>
           <button onClick={signinBtnHandler} className={`${showSignIn && classes.btnActive}`}>
             Sign In
+          </button>
+          <button onClick={signupBtnHandler} className={`${!showSignIn && classes.btnActive} ${!showSignIn && classes.moveInRight}`}>
+            Sign Up
           </button>
         </div>
         {!showSignIn && <SignUp />}

@@ -1,6 +1,6 @@
 import classes from "./globalForm.module.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import Profile from "../../images/cat.jpg";
+import Profile from "../../images/person.jpeg";
 import NewAdForm from "../ads/create ad form/NewAdForm";
 import AdCard from "../ads/ad card/AdCard";
 import AdsContext from "../../store/ads-context";
@@ -46,6 +46,7 @@ const GlobalForm = () => {
       endAt: ad.endAt,
       pictures: ad.pictures,
       id: ad._id,
+      isActive: ad.isActive,
     });
   };
 
@@ -72,7 +73,7 @@ const GlobalForm = () => {
     <main className={classes.adForm}>
       <nav className={classes.sideBar}>
         <div className={classes.profileBox}>
-          <img src={userContext.userData?.profilePicture ? userContext.userData?.profilePicture : Profile} alt="" srcSet="" />
+          <img src={userContext?.userData?.profilePicture ? userContext?.userData?.profilePicture : Profile} alt="" srcSet="" />
           <span>
             <span className={classes.greeting}>{getDailyTimeSegment()}, </span>
             {userContext.userData?.firstName}
