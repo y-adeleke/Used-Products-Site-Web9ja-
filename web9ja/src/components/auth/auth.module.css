@@ -9,7 +9,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  clip-path: polygon(0 0, 100% 0, 88% 100%, 0% 100%);
 }
 
 .formBox {

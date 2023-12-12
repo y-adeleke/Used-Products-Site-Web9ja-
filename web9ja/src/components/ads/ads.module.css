@@ -10,6 +10,7 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   animation: scrollUp 0.7s ease-in-out;
+  position: relative;
 }
 
 @media screen and (min-width: 1200px) {
@@ -28,4 +29,25 @@
   100% {
     transform: translateY(0);
   }
+}
+
+.viewMoreBtn {
+  position: absolute;
+  bottom: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: green;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer !important;
+  transition: all 0.3s ease-in-out;
+}
+.viewMoreBtn:hover {
+  background: #fff;
+  color: green;
+  border: 1px solid green;
 }

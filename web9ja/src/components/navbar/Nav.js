@@ -155,7 +155,6 @@ const Nav = () => {
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar
-                alt="A"
                 src={userContext.userData?.profilePicture ? userContext.userData?.profilePicture : CatImg}
                 style={{
                   backgroundColor: "#1B7339",

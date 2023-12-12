@@ -10,13 +10,17 @@ import { useContext } from "react";
 import UIContext from "./store/ui-context";
 import GlobalFormPage from "./pages/globalFormPage";
 import ProtectedRoute from "./protected routes/ProtectedRoute";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const uiContext = useContext(UIContext);
+  const location = useLocation();
+
+  const path = location.pathname;
 
   return (
     <div className="App">
-      {uiContext.loading && <LoadingSpinner />}
+      {uiContext.loading && path !== "/" && <LoadingSpinner />}
       <SimpleSnackbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
