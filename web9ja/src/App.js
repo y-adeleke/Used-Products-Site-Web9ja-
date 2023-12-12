@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      {uiContext.loading && path !== "/" && <LoadingSpinner />}
+      {uiContext.loading && path !== "/" && path !== "/auth" && <LoadingSpinner />}
       <SimpleSnackbar />
       <Routes>
         <Route path="/" element={<HomePage />} />

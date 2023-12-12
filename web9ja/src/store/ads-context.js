@@ -25,6 +25,9 @@ const AdsContext = createContext({
   getUserById: (userId) => {},
 });
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+console.log(backendUrl);
+
 export const AdsContextProvider = (props) => {
   const [ads, setAds] = useState([]);
   const [activeAdData, setActiveAdData] = useState(null);
@@ -59,7 +62,7 @@ export const AdsContextProvider = (props) => {
     });
     try {
       uiContext.setLoading(true);
-      const res = await fetch(`https://web9ja-backend.onrender.com/ads`, {
+      const res = await fetch(`${backendUrl}/ads`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -115,7 +118,7 @@ export const AdsContextProvider = (props) => {
         }
       });
 
-      const res = await fetch(`https://web9ja-backend.onrender.com/ads/${adId}`, {
+      const res = await fetch(`${backendUrl}/ads/${adId}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -156,7 +159,7 @@ export const AdsContextProvider = (props) => {
   const getAllAdsHandler = async () => {
     try {
       uiContext.setLoading(true);
-      const res = await fetch(`https://web9ja-backend.onrender.com/ads`);
+      const res = await fetch(`${backendUrl}/ads`);
       if (!res.ok) {
         const resData = await res.json();
         const errorMessage = resData.message || "Unable to get Ads!...";
@@ -184,7 +187,7 @@ export const AdsContextProvider = (props) => {
   const disableAdHandler = async (adId, token) => {
     try {
       uiContext.setLoading(true);
-      const res = await fetch(`https://web9ja-backend.onrender.com/ads/disable/${adId}`, {
+      const res = await fetch(`${backendUrl}/ads/disable/${adId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -227,7 +230,7 @@ export const AdsContextProvider = (props) => {
   const toggleFavouriteHamdler = async (userID, adId, token) => {
     try {
       uiContext.setLoading(true);
-      const res = await fetch(`https://web9ja-backend.onrender.com/ads/favorites/${userID}/${adId}`, {
+      const res = await fetch(`${backendUrl}/ads/favorites/${userID}/${adId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -302,7 +305,7 @@ export const AdsContextProvider = (props) => {
   const askQuestionHandler = async (data, adId) => {
     try {
       uiContext.setLoading(true);
-      const res = await fetch(`https://web9ja-backend.onrender.com/ads/questions/${adId}`, {
+      const res = await fetch(`${backendUrl}/ads/questions/${adId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -341,7 +344,7 @@ export const AdsContextProvider = (props) => {
   const answerQuestionHandler = async (answerText, adId, questionId, token) => {
     try {
       uiContext.setLoading(true);
-      const res = await fetch(`https://web9ja-backend.onrender.com/ads/questions/${adId}/answer/${questionId}`, {
+      const res = await fetch(`${backendUrl}/ads/questions/${adId}/answer/${questionId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -383,7 +386,7 @@ export const AdsContextProvider = (props) => {
   const getUserById = async (userId) => {
     try {
       uiContext.setLoading(true);
-      const res = await fetch(`https://web9ja-backend.onrender.com/users/${userId}`);
+      const res = await fetch(`${backendUrl}/users/${userId}`);
       if (!res.ok) {
         const resData = await res.json();
         const errorMessage = resData.message || "Unable to get user!...";

@@ -10,6 +10,8 @@ const UserContext = createContext({
   deleteUser: (userID, token) => {},
 });
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 export const UserContextProvider = (props) => {
   //consumption of other state from context
   const uiContext = useContext(UIContext);
@@ -27,7 +29,7 @@ export const UserContextProvider = (props) => {
   const signUpHandler = async (data) => {
     try {
       uiContext.setLoading(true);
-      const res = await fetch("https://web9ja-backend.onrender.com/users/register", {
+      const res = await fetch(`${backendUrl}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +77,7 @@ export const UserContextProvider = (props) => {
         formData.append("picture", data.profilePicture);
       }
 
-      const res = await fetch(`https://web9ja-backend.onrender.com/users/update/${userID}`, {
+      const res = await fetch(`${backendUrl}/users/update/${userID}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -115,7 +117,7 @@ export const UserContextProvider = (props) => {
   const deleteUserHandler = async (userID, token) => {
     try {
       uiContext.setLoading(true);
-      const res = await fetch(`https://web9ja-backend.onrender.com/users/delete/${userID}`, {
+      const res = await fetch(`${backendUrl}/users/delete/${userID}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
