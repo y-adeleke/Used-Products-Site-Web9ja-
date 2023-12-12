@@ -18,17 +18,17 @@ const HomeNav = () => {
     };
 
     // Add event listener on mount
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // Remove event listener on cleanup
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   // Set up the navbar classes dynamically
-  const navbarClasses = `${classes.navbar} ${!ads ? classes.homeActive : ""} ${isScrolled ? classes.scrolled : ''}`;
-  const navbarLink = `${classes.navLink} ${isScrolled ? classes.navLinkScrolled : ''}`;
+  const navbarClasses = `${classes.navbar} ${!ads ? classes.homeActive : ""} ${isScrolled ? classes.scrolled : ""}`;
+  const navbarLink = `${classes.navLink} ${isScrolled ? classes.navLinkScrolled : ""}  `;
 
   return (
     <nav className={navbarClasses}>
@@ -44,10 +44,18 @@ const HomeNav = () => {
         </div>
 
         <ul className={classes.navLinks}>
-          <li className={navbarLink}>Features</li>
-          <li className={navbarLink}>About</li>
-          <li className={navbarLink}>Reviews</li>
-          <li className={navbarLink}>Contact</li>
+          <li className={navbarLink}>
+            <a href="#about"> About</a>
+          </li>
+          <li className={navbarLink}>
+            <a href="#features"> Features</a>
+          </li>
+          <li className={navbarLink}>
+            <a href="#faq"> Faq</a>
+          </li>
+          <li className={navbarLink}>
+            <a href="#contact"> Contact</a>
+          </li>
         </ul>
       </div>
 

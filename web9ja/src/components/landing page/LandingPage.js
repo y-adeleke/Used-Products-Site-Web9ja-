@@ -1,15 +1,18 @@
 import classes from "./LandingPage.module.css";
-import iphone15 from "../../images/promo_iphone15_large_2x.jpg"
+import iphone15 from "../../images/promo_iphone15_large_2x.jpg";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
+import Create from "../../images/create.mov";
+import PickDeal from "../../images/pickdeal.mov";
+import PostAd from "../../images/postad.png";
 
 const LandingPage = () => {
   const authCtx = useContext(AuthContext);
 
   return (
     <div className={classes.fullpage}>
-      <section className={classes.section1} id="">
+      <section className={classes.section1} id="about">
         <div className={classes.main}>
           <div className={classes.massivetext}>
             Sell <span className={classes.accent2}>Anything</span> you can get your <span className={classes.pill1}>Hands</span> On
@@ -44,7 +47,7 @@ const LandingPage = () => {
           <img src={iphone15} alt="iphone15" srcset=""></img>
         </div>
       </section>
-      <section className={classes.section2}>
+      <section className={classes.section2} id="features">
         <div className={classes.heading}>
           <div className={classes.bigtext}>
             <h1 className={classes.black}>
@@ -69,10 +72,14 @@ const LandingPage = () => {
                 <h5 className={classes.black}>It’s as simple as A-B-C, Just click the create AD Button</h5>
               </div>
             </div>
-            <div className={classes.rightimg}></div>
+            <div className={classes.rightimg}>
+              <video className={classes.video} src={Create} autoPlay loop muted></video>
+            </div>
           </div>
           <div className={classes.secondstep}>
-            <div className={classes.leftimg}></div>
+            <div className={classes.leftimg}>
+              <img src={PostAd} alt="postad" srcset="" className={classes.postadimg} />
+            </div>
             <div className={classes.rightstep}>
               <h2 className={classes.black}>02</h2>
               <button className={classes.massivectav2}>
@@ -97,11 +104,13 @@ const LandingPage = () => {
                 <h5 className={classes.black}>Get feedback and comments from interested Customers</h5>
               </div>
             </div>
-            <div className={classes.rightimg}></div>
+            <div className={classes.rightimg}>
+              <video className={classes.video} src={PickDeal} autoPlay loop muted></video>
+            </div>
           </div>
         </div>
       </section>
-      <section className={classes.section3}>
+      <section className={classes.section3} id="faq">
         <div className={classes.heading}>
           <h1 className={classes.white}>
             Questions people ask <span className={classes.pill3}>Alot</span>
@@ -135,132 +144,12 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-      <section className={classes.section4}>
-        <div className={classes.headtext}>
-          <h2 className={classes.white}>Developed by</h2>
-        </div>
-        <div className={classes.cardlist}>
-          <div className={classes.card}>
-            <div className={classes.cardtop}>
-              <div className={classes.developer}>
-                <div className={classes.devpic}></div>
-                <h6 className={classes.lightgray}>FEMI BRIGHT</h6>
-              </div>
-              <div className={classes.Devline}>
-                <p className={classes.gray}>So basically for my part I designed, prototyped and animated the UI. Also I coded out the design.</p>
-              </div>
-            </div>
-            <div className={classes.bottom}>
-              <h6 className={classes.gray}>UI Designer</h6>
-              <div className={classes.dot}></div>
-              <h6 className={classes.gray}>Frontend Designer</h6>
-            </div>
-          </div>
-          <div className={classes.card}>
-            <div className={classes.cardtop}>
-              <div className={classes.developer}>
-                <div className={classes.devpic}></div>
-                <h6 className={classes.lightgray}>FEMI BRIGHT</h6>
-              </div>
-              <div className={classes.Devline}>
-                <hp className={classes.gray}>So basically for my part I designed, prototyped and animated the UI. Also I coded out the design.</hp>
-              </div>
-            </div>
-            <div className={classes.bottom}>
-              <h6 className={classes.gray}>UI Designer</h6>
-              <div className={classes.dot}></div>
-              <h6 className={classes.gray}>Frontend Designer</h6>
-            </div>
-          </div>
-          <div className={classes.card}>
-            <div className={classes.cardtop}>
-              <div className={classes.developer}>
-                <div className={classes.devpic}></div>
-                <h6 className={classes.lightgray}>FEMI BRIGHT</h6>
-              </div>
-              <div className={classes.Devline}>
-                <p className={classes.gray}>So basically for my part I designed, prototyped and animated the UI. Also I coded out the design.</p>
-              </div>
-            </div>
-            <div className={classes.bottom}>
-              <h6 className={classes.gray}>UI Designer</h6>
-              <div className={classes.dot}></div>
-              <p className={classes.gray}>Frontend Designer</p>
-            </div>
-          </div>
-          <div className={classes.card}>
-            <div className={classes.cardtop}>
-              <div className={classes.developer}>
-                <div className={classes.devpic}></div>
-                <h6 className={classes.lightgray}>FEMI BRIGHT</h6>
-              </div>
-              <div className={classes.Devline}>
-                <p className={classes.gray}>So basically for my part I designed, prototyped and animated the UI. Also I coded out the design.</p>
-              </div>
-            </div>
-            <div className={classes.bottom}>
-              <h6 className={classes.gray}>UI Designer</h6>
-              <div className={classes.dot}></div>
-              <h6 className={classes.gray}>Frontend Designer</h6>
-            </div>
-          </div>
-          <div className={classes.card}>
-            <div className={classes.cardtop}>
-              <div className={classes.developer}>
-                <div className={classes.devpic}></div>
-                <h6 className={classes.lightgray}>FEMI BRIGHT</h6>
-              </div>
-              <div className={classes.Devline}>
-                <p className={classes.gray}>So basically for my part I designed, prototyped and animated the UI. Also I coded out the design.</p>
-              </div>
-            </div>
-            <div className={classes.bottom}>
-              <h5 className={classes.gray}>UI Designer</h5>
-              <div className={classes.dot}></div>
-              <h5 className={classes.gray}>Frontend Designer</h5>
-            </div>
-          </div>
-          <div className={classes.card}>
-            <div className={classes.cardtop}>
-              <div className={classes.developer}>
-                <div className={classes.devpic}></div>
-                <h5 className={classes.lightgray}>FEMI BRIGHT</h5>
-              </div>
-              <div className={classes.Devline}>
-                <p className={classes.gray}>So basically for my part I designed, prototyped and animated the UI. Also I coded out the design.</p>
-              </div>
-            </div>
-            <div className={classes.bottom}>
-              <h6 className={classes.gray}>UI Designer</h6>
-              <div className={classes.dot}></div>
-              <h6 className={classes.gray}>Frontend Designer</h6>
-            </div>
-          </div>
-          <div className={classes.card}>
-            <div className={classes.cardtop}>
-              <div className={classes.developer}>
-                <div className={classes.devpic}></div>
-                <h6 className={classes.lightgray}>FEMI BRIGHT</h6>
-              </div>
-              <div className={classes.Devline}>
-                <p className={classes.gray}>So basically for my part I designed, prototyped and animated the UI. Also I coded out the design.</p>
-              </div>
-            </div>
-            <div className={classes.bottom}>
-              <h6 className={classes.gray}>UI Designer</h6>
-              <div className={classes.dot}></div>
-              <h6 className={classes.gray}>Frontend Designer</h6>
-            </div>
-          </div>
-        </div>
-      </section>
-      <footer className={classes.footer}>
-        <p className={classes.white}>Contact@AY_REP for more info</p>
-        <p className={classes.white}>Group1 - Julio's class</p>
+      <footer className={classes.footer} id="contact">
+        <p className={classes.white}>web9ja</p>
+        <p className={classes.white}>Group4 - Julio's class</p>
         <p className={classes.white}>2023</p>
       </footer>
     </div>
-
   );
 };
 

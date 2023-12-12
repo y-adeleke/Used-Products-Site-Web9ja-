@@ -13,12 +13,11 @@
   position: relative;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1900px) {
   .mainBox {
-    grid-template-columns: repeat(4, 1fr); 
-    padding: 4rem; 
-    grid-gap: 3rem; 
-    
+    grid-template-columns: repeat(4, 1fr);
+    padding: 4rem;
+    grid-gap: 3rem;
   }
 }
 
