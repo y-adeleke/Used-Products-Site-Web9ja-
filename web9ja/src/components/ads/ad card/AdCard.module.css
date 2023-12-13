@@ -143,35 +143,3 @@
   letter-spacing: 1.2px;
   font-family: "Poppins", sans-serif;
 }
-
-@media screen and (min-width: 1440px) {
-  .card {
-    grid-template-rows: 300px max-content;
-    padding-bottom: 2rem;
-  
-  }
-
-  .cardImg {
-    height: 300px; 
-  }
-
-  .status button, .cardTags button {
-    font-size: 14px; 
-    padding: 8px 12px; 
-  }
-
-  .textCon h3 {
-    font-size: 1.5rem; 
-  }
-
-  .textCon p {
-    font-size: 16px; 
-    width: auto; 
-  }
-
-  .priceText {
-    font-size: 1.4rem; 
-  }
-
-  
-}

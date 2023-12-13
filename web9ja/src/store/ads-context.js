@@ -25,8 +25,8 @@ const AdsContext = createContext({
   getUserById: (userId) => {},
 });
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
-console.log(backendUrl);
+let backendUrl = process.env.REACT_APP_BACKEND_URL;
+backendUrl = "https://web9ja-backend.onrender.com";
 
 export const AdsContextProvider = (props) => {
   const [ads, setAds] = useState([]);

@@ -10,7 +10,8 @@ const UserContext = createContext({
   deleteUser: (userID, token) => {},
 });
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+let backendUrl = process.env.REACT_APP_BACKEND_URL;
+backendUrl = "https://web9ja-backend.onrender.com";
 
 export const UserContextProvider = (props) => {
   //consumption of other state from context
