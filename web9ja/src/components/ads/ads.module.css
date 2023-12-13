@@ -13,14 +13,6 @@
   position: relative;
 }
 
-@media screen and (min-width: 1900px) {
-  .mainBox {
-    grid-template-columns: repeat(4, 1fr);
-    padding: 4rem;
-    grid-gap: 3rem;
-  }
-}
-
 @keyframes scrollUp {
   0% {
     transform: translateY(20%);
