@@ -3,7 +3,9 @@ import iphone15 from "../../images/promo_iphone15_large_2x.jpg";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
-import PostAd from "../../images/postad.png";
+import Create from "../../images/home1.jpeg";
+import PostAd from "../../images/home2.jpeg";
+import Pick from "../../images/home3.jpeg";
 
 const LandingPage = () => {
   const authCtx = useContext(AuthContext);
@@ -71,7 +73,7 @@ const LandingPage = () => {
               </div>
             </div>
             <div className={classes.rightimg}>
-              <video className={classes.video} src="https://youtu.be/u_m6UZImN-o" autoPlay loop muted></video>
+              <img src={Create} alt="create" srcset="" className={classes.createimg} />
             </div>
           </div>
           <div className={classes.secondstep}>
@@ -103,7 +105,7 @@ const LandingPage = () => {
               </div>
             </div>
             <div className={classes.rightimg}>
-              <video className={classes.video} src="https://youtu.be/JcSmhrb-wkI" autoPlay loop muted></video>
+              <img src={Pick} alt="pick" srcset="" className={classes.createimg} />
             </div>
           </div>
         </div>

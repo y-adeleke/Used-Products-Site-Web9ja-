@@ -5,7 +5,7 @@
   grid-template-columns: 1fr 1fr;
 }
 .imageBox {
-  background-image: url("../../images/bg2.jpg");
+  background-image: url("../../images/bgbackdrop.JPG");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -30,13 +30,13 @@
 .btnContainer button {
   cursor: pointer;
   background-color: transparent;
-  color: #000;
+  color: green;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 1.5rem;
 }
 .btnActive {
-  background-color: #000 !important;
+  background-color: green !important;
   color: #fff !important;
   animation: moveInLeft 0.5s ease-in-out;
 }

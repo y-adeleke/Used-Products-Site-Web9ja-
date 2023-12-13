@@ -19,7 +19,7 @@ const Ads = () => {
 
   return (
     <main className={classes.mainBox}>
-      {adsContext?.ads?.map((ad) => {
+      {adsContext?.ads?.map((ad, index) => {
         const isActive = new Date(ad.endAt) >= new Date() && ad.isActive;
         const { category, condition, status } = adsContext.filterAdChoice;
         const matchesCategory = category === "all" || category === ad.category;

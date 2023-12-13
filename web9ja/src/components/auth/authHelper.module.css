@@ -81,7 +81,7 @@ input:focus {
   border-radius: 4px;
   padding: 1rem;
   border: none;
-  background-color: #000;
+  background-color: green;
   color: #fff;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
@@ -94,8 +94,8 @@ input:focus {
 
 .outlineBtn {
   background-color: transparent;
-  border: 1px solid #000;
-  color: #000;
+  border: 1px solid green;
+  color: green;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -9,7 +9,8 @@ const AuthContext = createContext({
   logOut: () => {},
 });
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+let backendUrl = process.env.REACT_APP_BACKEND_URL;
+backendUrl = "https://web9ja-backend.onrender.com";
 
 export const AuthContextProvider = (props) => {
   //Consumption of other state from context
