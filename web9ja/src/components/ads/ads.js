@@ -26,10 +26,10 @@ const Ads = () => {
         const matchesCondition = condition === "all" || condition === ad.condition;
         const matchesStatus = status === "all" || status === isActive;
         const search = adsContext.searchData.trim().toLowerCase();
-        const matchesSearch = adsContext.searchData.trim().length === 0 || ad.itemName.trim().toLowerCase().incl(search);
+        const matchesSearch = adsContext.searchData.trim().length === 0 || ad.itemName.trim().toLowerCase().includes(search);
 
         if (matchesSearch && matchesCategory && matchesCondition && matchesStatus) {
-          if (uiContext.navActive === "explore" && isActive) {
+          if (uiContext.navActive === "explore") {
             return (
               <AdCard
                 key={ad._id}
