@@ -11,7 +11,9 @@
   -ms-overflow-style: none;
   animation: scrollUp 0.7s ease-in-out;
   position: relative;
+
   scroll-behavior: smooth;
+
 }
 
 @keyframes scrollUp {
