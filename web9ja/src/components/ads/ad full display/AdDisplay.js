@@ -237,6 +237,9 @@ const AdFullDisplay = () => {
 
         {navActive === "qAndA" && (
           <div className={classes.details}>
+            {ad.questions?.length <1 && <p>
+              No question yet!
+              </p>}
             {ad.questions?.map((question) => {
               return (
                 <div className={classes.qAndA}>
@@ -268,7 +271,7 @@ const AdFullDisplay = () => {
 
             {userContext?.userData?._id !== ad.userId && (
               <div className={`${classes.qandABox} ${classes.questionBox}`}>
-                <textarea name="response" id="" placeholder="Ask Your Question" onChange={textChangeHandler}></textarea>
+                <textarea name="response" id="" placeholder="Ask Your Question" value={text} onChange={textChangeHandler}></textarea>
                 <button onClick={sendQuestionHandler}>Send</button>
               </div>
             )}

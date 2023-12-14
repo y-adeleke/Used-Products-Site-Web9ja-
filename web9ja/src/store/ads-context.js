@@ -205,7 +205,9 @@ export const AdsContextProvider = (props) => {
       //get the ad
       const ad = ads[adIndex];
       //set the ad to inactive
-      ad.isActive = false;
+      console.log(ad.isActive)
+      ad.isActive = !ad.isActive;
+      console.log(ad.isActive)
       //replace the ad with the new ad
       const newAds = [...ads];
       newAds[adIndex] = ad;

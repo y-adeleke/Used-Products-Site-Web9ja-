@@ -191,10 +191,20 @@ const NewAdForm = () => {
               style={{
                 backgroundColor: "red",
               }}>
-              Delete Ad
+              Disable Ad
             </button>
           )}
-          {adsContext.activeAdData && (
+             {adsContext.activeAdData && !adsContext.activeAdData.isActive && (
+            <button
+              type="button"
+              onClick={deleteAdHandler}
+              style={{
+                backgroundColor: "green",
+              }}>
+              Enable Ad
+            </button>
+          )}
+          {adsContext.activeAdData && adsContext.activeAdData.isActive && (
             <button type="button" onClick={editAdHandler}>
               Update Ad
             </button>
